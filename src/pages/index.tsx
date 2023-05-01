@@ -1,9 +1,10 @@
 import { Button } from "antd";
+import { RecipeListPage } from "./recipe-list/RecipeListPage";
 
 export default function Home() {
   return (
     <div>
-      <Button type="primary">더하기</Button>
+      <RecipeListPage />
     </div>
   );
 }
