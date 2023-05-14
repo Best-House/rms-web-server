@@ -2,6 +2,9 @@
   "name": "rms-frontend",
   "version": "0.1.0",
   "private": true,
+  "codeOwners": [
+    "joi0104"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
