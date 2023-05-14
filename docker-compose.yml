@@ -1,0 +1,5 @@
+services:
+  ws:
+    image: "rms-frontend"
+    ports:
+      - "3000:3000"
