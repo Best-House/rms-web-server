@@ -1,5 +1,10 @@
 services:
-  ws:
-    image: "rms-frontend"
+  web_server:
+    image: "rms-web-server"
     ports:
       - "3000:3000"
+networks:
+  default:
+    external:
+      name: rms_net
+version: "3.0"
