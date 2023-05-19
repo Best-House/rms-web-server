@@ -1,6 +1,6 @@
 services:
   web_server:
-    image: "rms-web-server"
+    image: "jjjjoi0104/rms-web-server"
     ports:
       - "3000:3000"
 networks:
