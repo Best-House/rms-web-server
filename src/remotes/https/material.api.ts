@@ -32,6 +32,22 @@ getMaterials.url = "/materials";
 
 type CreateMaterialParams =
   | {
+      name: Material["name"];
+    }
+  | {
+      name: Material["name"];
+      price: number;
+      amount: number;
+    };
+
+export function createMaterial(params: CreateMaterialParams) {
+  return apiClient.post<{ id: Material["id"] }>("/materials", {
+    body: params,
+  });
+}
+
+type UpdateMaterialParams =
+  | {
       id: Material["id"];
       name: Material["name"];
     }
@@ -41,15 +57,6 @@ type CreateMaterialParams =
       price: number;
       amount: number;
     };
-
-export function createMaterial(params: CreateMaterialParams) {
-  return apiClient.post<{ id: Material["id"] }>("/materials", {
-    searchParams: { id: params.id },
-    body: params,
-  });
-}
-
-type UpdateMaterialParams = CreateMaterialParams;
 
 export function updateMaterial(params: UpdateMaterialParams) {
   return apiClient.put<{ id: Material["id"] }>("/materials", {

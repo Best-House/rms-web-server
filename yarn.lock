@@ -344,11 +344,6 @@
   dependencies:
     "@toss/utils" "^1.4.2"
 
-"@toss/ky@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@toss/ky/-/ky-1.1.2.tgz#2bd2cd68a35562132f2c1e1ed1a82af9a9d60814"
-  integrity sha512-eSEAeqQ1F5DdqOYaue7jTNli53Ui0G2ei6uMmlD5TdsL8kF23IuXC4UDoYP72rCZ7U7RgAKBmIP2+Q86cIB7YA==
-
 "@toss/utils@^1.4.2":
   version "1.4.2"
   resolved "https://registry.npmjs.org/@toss/utils/-/utils-1.4.2.tgz"
@@ -2630,6 +2625,11 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
+react-hook-form@^7.44.3:
+  version "7.44.3"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.44.3.tgz#a99e560c6ef2b668db1daaebc4f98267331b6828"
+  integrity sha512-/tHId6p2ViAka1wECMw8FEPn/oz/w226zehHrJyQ1oIzCBNMIJCaj6ZkQcv+MjDxYh9MWR7RQic7Qqwe4a5nkw==
+
 react-is@^16.12.0, react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -3160,7 +3160,3 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
-
-"~@link:./src":
-  version "0.0.0"
-  uid ""
