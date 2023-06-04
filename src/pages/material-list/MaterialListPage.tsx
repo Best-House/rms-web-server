@@ -1,14 +1,16 @@
+import { useQueryMaterials } from "@/hooks/useMaterial";
 import { Flex } from "@/styles/utils";
 import { RightOutlined } from "@ant-design/icons";
-import { Button, List, Typography } from "antd";
+import { withAsyncBoundary } from "@toss/async-boundary";
+import { List, Typography, Button } from "antd";
 
-const data = ["아메리카노", "카페라떼", "카페모카", "초콜릿라떼", "녹차라떼"];
+function Page() {
+  const { data } = useQueryMaterials();
 
-export function RecipeListPage() {
   return (
     <List
       style={{ width: 600 }}
-      header={<Typography.Title>레시피 조회</Typography.Title>}
+      header={<Typography.Title>원자재 조회</Typography.Title>}
       footer={
         <Flex justify="end">
           <Button type="primary">추가하기</Button>
@@ -24,10 +26,15 @@ export function RecipeListPage() {
             padding: 20,
           }}
         >
-          <Typography.Text style={{ flex: 1 }}>{item}</Typography.Text>
+          <Typography.Text style={{ flex: 1 }}>{item.name}</Typography.Text>
           <RightOutlined />
         </List.Item>
       )}
     />
   );
 }
+
+export const MaterialListPage = withAsyncBoundary(Page, {
+  pendingFallback: null,
+  rejectedFallback: () => null,
+});

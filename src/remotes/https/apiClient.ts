@@ -1,4 +1,5 @@
 import ky from "ky";
+import path from "path";
 
 class ApiClient {
   public get<T>(
@@ -6,7 +7,7 @@ class ApiClient {
     options?: Omit<NonNullable<Parameters<typeof ky.get>[1]>, "body">
   ) {
     return ky
-      .get(path, {
+      .get(path.replace("/", ""), {
         ...options,
         headers: {
           ...options?.headers,
@@ -14,7 +15,7 @@ class ApiClient {
         },
         prefixUrl: getPrefixUrl(),
       })
-      .json() as T;
+      .json<T>();
   }
   public post<T>(
     path: string,
@@ -23,7 +24,7 @@ class ApiClient {
     }
   ) {
     return ky
-      .post(path, {
+      .post(path.replace("/", ""), {
         ...options,
         body: JSON.stringify(options?.body),
         headers: {
@@ -32,7 +33,7 @@ class ApiClient {
         },
         prefixUrl: getPrefixUrl(),
       })
-      .json() as T;
+      .json<T>();
   }
   public put<T>(
     path: string,
@@ -41,7 +42,7 @@ class ApiClient {
     }
   ) {
     return ky
-      .put(path, {
+      .put(path.replace("/", ""), {
         ...options,
         body: JSON.stringify(options?.body),
         headers: {
@@ -50,14 +51,14 @@ class ApiClient {
         },
         prefixUrl: getPrefixUrl(),
       })
-      .json() as T;
+      .json<T>();
   }
   public delete<T>(
     path: string,
     options?: Omit<NonNullable<Parameters<typeof ky.delete>[1]>, "body">
   ) {
     return ky
-      .delete(path, {
+      .delete(path.replace("/", ""), {
         ...options,
         headers: {
           ...options?.headers,
@@ -65,14 +66,14 @@ class ApiClient {
         },
         prefixUrl: getPrefixUrl(),
       })
-      .json() as T;
+      .json<T>();
   }
   public patch<T>(
     path: string,
     options?: Omit<NonNullable<Parameters<typeof ky.patch>[1]>, "body">
   ) {
     return ky
-      .patch(path, {
+      .patch(path.replace("/", ""), {
         ...options,
         headers: {
           ...options?.headers,
@@ -80,12 +81,12 @@ class ApiClient {
         },
         prefixUrl: getPrefixUrl(),
       })
-      .json() as T;
+      .json<T>();
   }
 }
 
 export const apiClient = new ApiClient();
 
 function getPrefixUrl() {
-  return "/api";
+  return "http://localhost:3000/api";
 }

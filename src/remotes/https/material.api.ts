@@ -2,40 +2,48 @@ import { Material } from "@/domain/aggregate/material/Material";
 import { apiClient } from "./apiClient";
 
 interface GetMaterialResponse {
-  id: string;
-  name: string;
+  id: Material["id"];
+  name: Material["name"];
   priceInfo?: {
     price: number;
     amount: number;
   };
 }
 
-export function getMaterial(params: { id: Material["id"] }) {
-  return apiClient.get<GetMaterialResponse>("/materials", {
+export async function getMaterial(params: { id: Material["id"] }) {
+  const response = await apiClient.get<GetMaterialResponse>("/materials", {
     searchParams: params,
   });
+
+  return new Material(response);
 }
+
+getMaterial.url = "/materials/:id";
 
 type GetMaterialsResponse = GetMaterialResponse[];
 
-export function getMaterials() {
-  return apiClient.get<GetMaterialsResponse>("/materials");
+export async function getMaterials() {
+  const response = await apiClient.get<GetMaterialsResponse>("/materials");
+
+  return response.map((material) => new Material(material));
 }
+
+getMaterials.url = "/materials";
 
 type CreateMaterialParams =
   | {
-      id: string;
-      name: string;
+      id: Material["id"];
+      name: Material["name"];
     }
   | {
-      id: string;
-      name: string;
+      id: Material["id"];
+      name: Material["name"];
       price: number;
       amount: number;
     };
 
 export function createMaterial(params: CreateMaterialParams) {
-  return apiClient.post("/materials", {
+  return apiClient.post<{ id: Material["id"] }>("/materials", {
     searchParams: { id: params.id },
     body: params,
   });
@@ -44,12 +52,14 @@ export function createMaterial(params: CreateMaterialParams) {
 type UpdateMaterialParams = CreateMaterialParams;
 
 export function updateMaterial(params: UpdateMaterialParams) {
-  return apiClient.put("/materials", {
+  return apiClient.put<{ id: Material["id"] }>("/materials", {
     searchParams: { id: params.id },
     body: params,
   });
 }
 
 export function deleteMaterial(params: { id: Material["id"] }) {
-  return apiClient.delete("/materials", { searchParams: params });
+  return apiClient.delete<{ id: Material["id"] }>("/materials", {
+    searchParams: params,
+  });
 }
