@@ -10,10 +10,8 @@ interface GetMaterialResponse {
   };
 }
 
-export async function getMaterial(params: { id: Material["id"] }) {
-  const response = await apiClient.get<GetMaterialResponse>("/materials", {
-    searchParams: params,
-  });
+export async function getMaterial({ id }: { id: Material["id"] }) {
+  const response = await apiClient.get<GetMaterialResponse>(`/materials/${id}`);
 
   return new Material(response);
 }
@@ -59,14 +57,11 @@ type UpdateMaterialParams =
     };
 
 export function updateMaterial(params: UpdateMaterialParams) {
-  return apiClient.put<{ id: Material["id"] }>("/materials", {
-    searchParams: { id: params.id },
+  return apiClient.put<{ id: Material["id"] }>(`/materials/${params.id}`, {
     body: params,
   });
 }
 
-export function deleteMaterial(params: { id: Material["id"] }) {
-  return apiClient.delete<{ id: Material["id"] }>("/materials", {
-    searchParams: params,
-  });
+export function deleteMaterial({ id }: { id: Material["id"] }) {
+  return apiClient.delete<{ id: Material["id"] }>(`/materials/${id}`);
 }

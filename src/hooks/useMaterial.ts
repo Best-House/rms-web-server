@@ -6,8 +6,8 @@ import {
   getMaterials,
   updateMaterial,
 } from "@/remotes/https/material.api";
+import { useSuspendedQuery } from "@toss/react-query";
 import {
-  UseBaseQueryOptions,
   UseQueryOptions,
   useMutation,
   useQuery,
@@ -18,7 +18,7 @@ export function useQueryMaterial(
   { id }: { id: Material["id"] },
   queryOptions?: Omit<UseQueryOptions<Material>, "queryKey" | "queryFn">
 ) {
-  return useQuery(
+  return useSuspendedQuery(
     [getMaterial.url, id],
     () => {
       return getMaterial({ id });
@@ -32,7 +32,7 @@ useQueryMaterial.key = (id: Material["id"]) => [getMaterial.url, id];
 export function useQueryMaterials(
   queryOptions?: Omit<UseQueryOptions<Material[]>, "queryKey" | "queryFn">
 ) {
-  return useQuery(
+  return useSuspendedQuery(
     [getMaterials.url],
     () => {
       return getMaterials();
