@@ -330,6 +330,13 @@
   dependencies:
     tslib "^2.4.0"
 
+"@toss/assert@^1.1.8":
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/@toss/assert/-/assert-1.1.8.tgz#29d703b67b1e3498c96b0dce2e4fcb4ffce7dfed"
+  integrity sha512-EWJb7+lOMNjh0U9OQQDZ7kcn/qMZ0SVgjTkkG8tC0q4SI66f7yR3jDAQE2HqC2/jE07Qh57VzGkr38IE/HmCRQ==
+  dependencies:
+    "@toss/utils" "^1.4.2"
+
 "@toss/async-boundary@^1.4.2":
   version "1.4.2"
   resolved "https://registry.npmjs.org/@toss/async-boundary/-/async-boundary-1.4.2.tgz"
@@ -343,6 +350,16 @@
   integrity sha512-rVl7/qpfrQxMPTM/IAaigVDNR1tb1RL+NA4ucHCRevy+dn4ZCXz5XVRdDprMtPI7DF/N+CpSARmbwkZ8vMNLHQ==
   dependencies:
     "@toss/utils" "^1.4.2"
+
+"@toss/react-query@^1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@toss/react-query/-/react-query-1.1.7.tgz#25ee634e508952fb44059d75f078d4421cea5ae5"
+  integrity sha512-/z6geWGpfkdUb9T2cT/SJnTE1kShV72MBp4xIA5aIlrDfirW1V1xe590pBxSEzpbNM/w/S9M7bfMxNGir7dS0Q==
+
+"@toss/use-query-param@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@toss/use-query-param/-/use-query-param-1.1.6.tgz#31c376da3c354c124bbec70b6eea2e1052c700b9"
+  integrity sha512-NuakBGDJFHcK7vFWwQHM7GkoKtfYOEGiOg3VBcSo/icVm8iF1BT0z12X0bh2Fl7tGXWB3CwtaQi5qrcQvFJliQ==
 
 "@toss/utils@^1.4.2":
   version "1.4.2"

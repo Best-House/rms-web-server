@@ -6,8 +6,8 @@ const nextConfig = {
   async rewrites() {
 		return [
 			{
-				source: "/api/:path",
-				destination: "https://hojun.asuscomm.com/api/:path",
+				source: "/api/:path*",
+				destination: "https://hojun.asuscomm.com/api/:path*",
 			},
 		];
 	},
