@@ -1,10 +1,10 @@
-import { MaterialType } from "../material/Material";
+import { Material } from "../material/Material";
 
 export class Ingredient {
-  materialId: MaterialType["id"];
-  amount: number;
+  public materialId;
+  public amount;
 
-  constructor(materialId: MaterialType["id"], amount: number) {
+  constructor(materialId: Material["id"], amount: number) {
     this.materialId = materialId;
     this.amount = amount;
   }
