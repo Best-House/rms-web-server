@@ -1,5 +1,4 @@
 import ky from "ky";
-import path from "path";
 
 class ApiClient {
   public get<T>(

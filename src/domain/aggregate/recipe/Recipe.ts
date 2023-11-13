@@ -1,13 +1,17 @@
 import { Ingredient } from "./Ingredient";
 
 export class Recipe {
-  public id;
-  public name;
-  public ingredients;
+  constructor(
+    public readonly id: string,
+    public readonly name: string,
+    public readonly ingredients: Ingredient[]
+  ) {}
 
-  constructor(id: string, name: string, ingredients: Ingredient[]) {
-    this.id = id;
-    this.name = name;
-    this.ingredients = ingredients;
+  public get json() {
+    return {
+      id: this.id,
+      name: this.name,
+      ingredients: this.ingredients.map((ingredient) => ingredient.json),
+    };
   }
 }

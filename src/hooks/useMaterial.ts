@@ -7,12 +7,7 @@ import {
   updateMaterial,
 } from "@/remotes/https/material.api";
 import { useSuspendedQuery } from "@toss/react-query";
-import {
-  UseQueryOptions,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "react-query";
+import { UseQueryOptions, useMutation, useQueryClient } from "react-query";
 
 export function useQueryMaterial(
   { id }: { id: Material["id"] },
@@ -27,8 +22,6 @@ export function useQueryMaterial(
   );
 }
 
-useQueryMaterial.key = (id: Material["id"]) => [getMaterial.url, id];
-
 export function useQueryMaterials(
   queryOptions?: Omit<UseQueryOptions<Material[]>, "queryKey" | "queryFn">
 ) {
@@ -41,37 +34,34 @@ export function useQueryMaterials(
   );
 }
 
-useQueryMaterials.key = () => [getMaterials.url];
-
-export function useMutateMaterial() {
+function useRefetchMaterials() {
   const queryClient = useQueryClient();
 
-  const create = useMutation(createMaterial, {
-    onSuccess: ({ id }) => {
-      return queryClient.refetchQueries([
-        useQueryMaterials.key(),
-        useQueryMaterial.key(id),
-      ]);
-    },
-  });
+  return () => {
+    return queryClient.refetchQueries([getMaterial.url]);
+  };
+}
 
-  const update = useMutation(updateMaterial, {
-    onSuccess: ({ id }) => {
-      return queryClient.refetchQueries([
-        useQueryMaterials.key(),
-        useQueryMaterial.key(id),
-      ]);
-    },
-  });
+export function useCreateMaterial() {
+  const refetchMaterials = useRefetchMaterials();
 
-  const remove = useMutation(deleteMaterial, {
-    onSuccess: ({ id }) => {
-      return queryClient.refetchQueries([
-        useQueryMaterials.key(),
-        useQueryMaterial.key(id),
-      ]);
-    },
+  return useMutation(createMaterial, {
+    onSuccess: refetchMaterials,
   });
+}
 
-  return { create, update, remove };
+export function useUpdateMaterial() {
+  const refetchMaterials = useRefetchMaterials();
+
+  return useMutation(updateMaterial, {
+    onSuccess: refetchMaterials,
+  });
+}
+
+export function useRemoveMaterial() {
+  const refetchMaterials = useRefetchMaterials();
+
+  return useMutation(deleteMaterial, {
+    onSuccess: refetchMaterials,
+  });
 }

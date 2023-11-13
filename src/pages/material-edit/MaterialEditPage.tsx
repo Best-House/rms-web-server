@@ -1,5 +1,9 @@
 import { MaterialForm } from "@/components/MaterialForm";
-import { useMutateMaterial, useQueryMaterial } from "@/hooks/useMaterial";
+import {
+  useUpdateMaterial,
+  useRemoveMaterial,
+  useQueryMaterial,
+} from "@/hooks/useMaterial";
 import { assert } from "@toss/assert";
 import { withAsyncBoundary } from "@toss/async-boundary";
 import { useQueryParam } from "@toss/use-query-param";
@@ -12,22 +16,23 @@ function Page() {
 
   const router = useRouter();
   const { data } = useQueryMaterial({ id });
-  const { update, remove } = useMutateMaterial();
+  const update = useUpdateMaterial();
+  const remove = useRemoveMaterial();
 
   return (
     <>
       <MaterialForm
-        defaultValues={{
-          name: data.name,
-          price: data.priceInfo?.price,
-          amount: data.priceInfo?.amount,
-        }}
+        defaultValues={data.json}
         onSubmit={async (fields) => {
           await update.mutateAsync({ id, ...fields });
           Router.back();
           message.success("원자재를 수정하였습니다.");
         }}
       />
+      <Button type="primary" htmlType="submit" form={MaterialForm.id}>
+        확인
+      </Button>
+
       <Popconfirm
         placement="bottom"
         title="정말로 삭제하시겠어요?"
@@ -39,7 +44,7 @@ function Page() {
         okText="네"
         cancelText="아니요"
       >
-        <Button danger>삭제</Button>
+        <Button danger={true}>삭제</Button>
       </Popconfirm>
     </>
   );

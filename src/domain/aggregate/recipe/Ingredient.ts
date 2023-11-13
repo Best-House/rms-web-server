@@ -1,11 +1,15 @@
 import { Material } from "../material/Material";
 
 export class Ingredient {
-  public materialId;
-  public amount;
+  constructor(
+    public readonly materialId: Material["id"],
+    public readonly amount: number
+  ) {}
 
-  constructor(materialId: Material["id"], amount: number) {
-    this.materialId = materialId;
-    this.amount = amount;
+  public get json() {
+    return {
+      materialId: this.materialId,
+      amount: this.amount,
+    };
   }
 }
