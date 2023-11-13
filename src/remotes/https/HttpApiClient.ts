@@ -1,6 +1,7 @@
 import ky from "ky";
+import { ApiClient } from "../ApiClient";
 
-class ApiClient {
+export class HttpApiClient implements ApiClient {
   public get<T>(
     path: string,
     options?: Omit<NonNullable<Parameters<typeof ky.get>[1]>, "body">
@@ -84,7 +85,7 @@ class ApiClient {
   }
 }
 
-export const apiClient = new ApiClient();
+export const httpApiClient = new HttpApiClient();
 
 function getPrefixUrl() {
   return "http://localhost:3000/api";
