@@ -44,7 +44,14 @@ function Page() {
           }}
         >
           <Typography.Text style={{ flex: 1 }}>{item.name}</Typography.Text>
-          <RightOutlined />
+          <RightOutlined
+            onClick={() => {
+              router.push({
+                pathname: 라우트.레시피_수정,
+                query: { id: item.id },
+              });
+            }}
+          />
         </List.Item>
       )}
     />
