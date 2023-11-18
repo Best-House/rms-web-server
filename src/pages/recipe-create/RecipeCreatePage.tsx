@@ -11,6 +11,10 @@ export function RecipeCreatePage() {
   return (
     <Card>
       <RecipeForm
+        defaultValues={{
+          name: "",
+          ingredients: [{ materialId: "", amount: 0 }],
+        }}
         onSubmit={async (fields) => {
           const ingredients = fields.ingredients.map((ingredient) =>
             Ingredient.from(ingredient),

@@ -6,10 +6,8 @@ import { useQueryMaterials } from "../material/useMaterial";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { AsyncBoundary } from "@/components/AsyncBoundary";
 
-const emptyIngredient = { materialId: "", amount: 0 };
-
 interface Fields {
-  id: Recipe["id"];
+  id?: Recipe["id"];
   name: Recipe["name"];
   ingredients: {
     materialId: Ingredient["materialId"];
@@ -66,7 +64,7 @@ export function _Form({ onSubmit, defaultValues }: Props) {
         }}
       />
       <Divider />
-      {[emptyIngredient, ...fields].map((_, index) => {
+      {fields.map((_, index) => {
         return (
           <>
             <Controller
@@ -121,7 +119,7 @@ export function _Form({ onSubmit, defaultValues }: Props) {
       <Flex justify="end">
         <Button
           onClick={() => {
-            append(emptyIngredient);
+            append({ materialId: "", amount: 0 });
           }}
           icon={<PlusOutlined />}
           style={{ marginRight: 8 }}

@@ -37,7 +37,7 @@ function Page() {
           const ingredients = fields.ingredients.map((ingredient) =>
             Ingredient.from(ingredient),
           );
-          await update.mutateAsync({ ...fields, ingredients });
+          await update.mutateAsync({ id, ...fields, ingredients });
           Router.back();
           message.success("레시피를 수정하였습니다.");
         }}
