@@ -1,19 +1,12 @@
 import { Material } from "@/domain/aggregate/material/Material";
 import {
-  UseSuspenseQueryOptions,
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import { MaterialService } from "@/service/MaterialService";
 
-export function useQueryMaterial(
-  { id }: { id: Material["id"] },
-  queryOptions?: Omit<
-    UseSuspenseQueryOptions<Material>,
-    "queryKey" | "queryFn"
-  >,
-) {
+export function useQueryMaterial({ id }: { id: Material["id"] }) {
   const materialService = new MaterialService();
 
   return useSuspenseQuery({
@@ -21,16 +14,10 @@ export function useQueryMaterial(
     queryFn: () => {
       return materialService.getMaterial({ id });
     },
-    ...queryOptions,
   });
 }
 
-export function useQueryMaterials(
-  queryOptions?: Omit<
-    UseSuspenseQueryOptions<Material[]>,
-    "queryKey" | "queryFn"
-  >,
-) {
+export function useQueryMaterials() {
   const materialService = new MaterialService();
 
   return useSuspenseQuery({
@@ -38,7 +25,6 @@ export function useQueryMaterials(
     queryFn: () => {
       return materialService.getMaterials();
     },
-    ...queryOptions,
   });
 }
 
@@ -52,36 +38,36 @@ function useRefetchMaterials() {
 
 export function useCreateMaterial() {
   const materialService = new MaterialService();
-  const refetchMaterials = useRefetchMaterials();
+  const refetch = useRefetchMaterials();
 
   return useMutation({
     mutationFn: (
       ...params: Parameters<typeof materialService.createMaterial>
     ) => materialService.createMaterial(...params),
-    onSuccess: refetchMaterials,
+    onSuccess: refetch,
   });
 }
 
 export function useUpdateMaterial() {
   const materialService = new MaterialService();
-  const refetchMaterials = useRefetchMaterials();
+  const refetch = useRefetchMaterials();
 
   return useMutation({
     mutationFn: (
       ...params: Parameters<typeof materialService.updateMaterial>
     ) => materialService.updateMaterial(...params),
-    onSuccess: refetchMaterials,
+    onSuccess: refetch,
   });
 }
 
-export function useRemoveMaterial() {
+export function useDeleteMaterial() {
   const materialService = new MaterialService();
-  const refetchMaterials = useRefetchMaterials();
+  const refetch = useRefetchMaterials();
 
   return useMutation({
     mutationFn: (
       ...params: Parameters<typeof materialService.deleteMaterial>
     ) => materialService.deleteMaterial(...params),
-    onSuccess: refetchMaterials,
+    onSuccess: refetch,
   });
 }

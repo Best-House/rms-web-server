@@ -1,7 +1,7 @@
 import { MaterialForm } from "@/modules/material/MaterialForm";
 import {
   useUpdateMaterial,
-  useRemoveMaterial,
+  useDeleteMaterial,
   useQueryMaterial,
 } from "@/modules/material/useMaterial";
 import { AsyncBoundary } from "@/components/AsyncBoundary";
@@ -25,7 +25,7 @@ function Page() {
   const router = useRouter();
   const { data } = useQueryMaterial({ id });
   const update = useUpdateMaterial();
-  const remove = useRemoveMaterial();
+  const remove = useDeleteMaterial();
 
   return (
     <Card>
