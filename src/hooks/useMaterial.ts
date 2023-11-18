@@ -1,7 +1,7 @@
 import { Material } from "@/domain/aggregate/material/Material";
 import { useSuspendedQuery } from "@toss/react-query";
 import { UseQueryOptions, useMutation, useQueryClient } from "react-query";
-import { MaterialService } from "../domain/service/MaterialService";
+import { MaterialService } from "@/service/MaterialService";
 
 export function useQueryMaterial(
   { id }: { id: Material["id"] },

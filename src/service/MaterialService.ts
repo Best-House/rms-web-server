@@ -1,4 +1,4 @@
-import { Material } from "../aggregate/material/Material";
+import { Material } from "@/domain/aggregate/material/Material";
 import { HttpApiClient } from "@/remotes/https/HttpApiClient";
 
 export class MaterialService {
