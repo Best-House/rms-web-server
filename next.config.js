@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  experimental: { appDir: false },
+  reactStrictMode: false,
   output: "standalone",
   async rewrites() {
     return [
