@@ -332,19 +332,24 @@
   dependencies:
     tslib "^2.4.0"
 
+"@tanstack/query-core@5.8.3":
+  version "5.8.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.8.3.tgz#7c6d62721518223e8b27f1a0b5e9bd4e3bb7ecd8"
+  integrity sha512-SWFMFtcHfttLYif6pevnnMYnBvxKf3C+MHMH7bevyYfpXpTMsLB9O6nNGBdWSoPwnZRXFNyNeVZOw25Wmdasow==
+
+"@tanstack/react-query@^5.8.4":
+  version "5.8.4"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.8.4.tgz#7d5ef4dc4e2985fdc607d0f30ff79a8453abe652"
+  integrity sha512-CD+AkXzg8J72JrE6ocmuBEJfGzEzu/bzkD6sFXFDDB5yji9N20JofXZlN6n0+CaPJuIi+e4YLCbGsyPFKkfNQA==
+  dependencies:
+    "@tanstack/query-core" "5.8.3"
+
 "@toss/assert@^1.1.8":
   version "1.1.12"
   resolved "https://registry.yarnpkg.com/@toss/assert/-/assert-1.1.12.tgz#86e7a98b383d28207890e89760ba40ec2b9bba60"
   integrity sha512-6ZNujiSf5AHOJ2tWtEb5E2mLz5OTChCWwHZk9osPR3Jjk0t/RpbRnXxuAnFWiEdfqlZLg2QM1YHD4DDTBP3JEg==
   dependencies:
     "@toss/utils" "^1.4.6"
-
-"@toss/async-boundary@^1.4.2":
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/@toss/async-boundary/-/async-boundary-1.4.6.tgz#95aa316300e763debf38549d82aaacf1f7e0add5"
-  integrity sha512-yM6AnesE11c9RyNPPWlY4D80ZpfgXDtToNmvN2GjuJc46P0D+iI3E4Bu0BfhuYsyqLU7/1O6IOi38yiG5c53oA==
-  dependencies:
-    "@toss/error-boundary" "^1.4.6"
 
 "@toss/error-boundary@^1.4.6":
   version "1.4.6"
@@ -353,11 +358,6 @@
   dependencies:
     "@toss/react" "^1.6.1"
     "@toss/utils" "^1.4.6"
-
-"@toss/react-query@^1.1.7":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@toss/react-query/-/react-query-1.2.1.tgz#1effb35fbb51863ff8c93cba38ccc4a58feceb13"
-  integrity sha512-1qbYQwt1aIc9iFkchZpQ3AlzHdtHp384RFE4LApx2gjETf4PRQz83Hz1dO9zPesIIUPb1ZU3B6hKCgBWOOI0xA==
 
 "@toss/react@^1.6.1":
   version "1.6.1"
@@ -377,11 +377,6 @@
   integrity sha512-NLRB5s5PAmAzofsnRr5xKwdpFQeDSBFyuyHjF/rzZsgMlsFb94mzweYKmFrPx6oCM3Boh/TUYn6A8yxAcncBeA==
   dependencies:
     "@babel/runtime" "^7.19.0"
-
-"@toss/use-query-param@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@toss/use-query-param/-/use-query-param-1.2.1.tgz#375bbc8fd6560b9ebb88da9ad22fa909dd8ae54b"
-  integrity sha512-wLyHxwdwPp/zlWqXdvu7miQcwe5wRZ2CVCEbkarhIm+S50ViMaXurHEjgaxbczLNirtSgOzjr8Rre+7WNH1Gjg==
 
 "@toss/utils@^1.4.6":
   version "1.4.6"

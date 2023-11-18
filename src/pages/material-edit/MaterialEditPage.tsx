@@ -4,11 +4,19 @@ import {
   useRemoveMaterial,
   useQueryMaterial,
 } from "@/hooks/useMaterial";
+import { AsyncBoundary } from "@/utils/AsyncBoundary";
+import { useQueryParam } from "@/utils/useQueryParam";
 import { assert } from "@toss/assert";
-import { withAsyncBoundary } from "@toss/async-boundary";
-import { useQueryParam } from "@toss/use-query-param";
 import { Button, Popconfirm, message } from "antd";
 import Router, { useRouter } from "next/router";
+
+export function MaterialEditPage() {
+  return (
+    <AsyncBoundary pendingFallback={null} rejectedFallback={null}>
+      <Page />
+    </AsyncBoundary>
+  );
+}
 
 function Page() {
   const id = useQueryParam("id", { suspense: true });
@@ -49,8 +57,3 @@ function Page() {
     </>
   );
 }
-
-export const MaterialEditPage = withAsyncBoundary(Page, {
-  pendingFallback: null,
-  rejectedFallback: () => null,
-});
