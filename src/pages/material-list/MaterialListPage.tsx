@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 export function MaterialListPage() {
   return (
-    <AsyncBoundary rejectedFallback={null} pendingFallback={null}>
+    <AsyncBoundary>
       <Page />
     </AsyncBoundary>
   );

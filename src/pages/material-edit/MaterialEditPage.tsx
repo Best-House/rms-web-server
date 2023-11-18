@@ -12,7 +12,7 @@ import Router, { useRouter } from "next/router";
 
 export function MaterialEditPage() {
   return (
-    <AsyncBoundary pendingFallback={null} rejectedFallback={null}>
+    <AsyncBoundary>
       <Page />
     </AsyncBoundary>
   );
