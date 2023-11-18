@@ -4,7 +4,7 @@ export class Recipe {
   constructor(
     public readonly id: string,
     public readonly name: string,
-    public readonly ingredients: Ingredient[]
+    public readonly ingredients: Ingredient[],
   ) {}
 
   public get json() {

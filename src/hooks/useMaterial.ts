@@ -5,7 +5,7 @@ import { MaterialService } from "@/service/MaterialService";
 
 export function useQueryMaterial(
   { id }: { id: Material["id"] },
-  queryOptions?: Omit<UseQueryOptions<Material>, "queryKey" | "queryFn">
+  queryOptions?: Omit<UseQueryOptions<Material>, "queryKey" | "queryFn">,
 ) {
   const materialService = new MaterialService();
 
@@ -14,12 +14,12 @@ export function useQueryMaterial(
     () => {
       return materialService.getMaterial({ id });
     },
-    queryOptions
+    queryOptions,
   );
 }
 
 export function useQueryMaterials(
-  queryOptions?: Omit<UseQueryOptions<Material[]>, "queryKey" | "queryFn">
+  queryOptions?: Omit<UseQueryOptions<Material[]>, "queryKey" | "queryFn">,
 ) {
   const materialService = new MaterialService();
 
@@ -28,7 +28,7 @@ export function useQueryMaterials(
     () => {
       return materialService.getMaterials();
     },
-    queryOptions
+    queryOptions,
   );
 }
 
@@ -49,7 +49,7 @@ export function useCreateMaterial() {
       materialService.createMaterial(...params),
     {
       onSuccess: refetchMaterials,
-    }
+    },
   );
 }
 
@@ -62,7 +62,7 @@ export function useUpdateMaterial() {
       materialService.updateMaterial(...params),
     {
       onSuccess: refetchMaterials,
-    }
+    },
   );
 }
 
@@ -75,6 +75,6 @@ export function useRemoveMaterial() {
       materialService.deleteMaterial(...params),
     {
       onSuccess: refetchMaterials,
-    }
+    },
   );
 }

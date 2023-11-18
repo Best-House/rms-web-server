@@ -4,7 +4,7 @@ import { ApiClient } from "../ApiClient";
 export class HttpApiClient implements ApiClient {
   public get<T>(
     path: string,
-    options?: Omit<NonNullable<Parameters<typeof ky.get>[1]>, "body">
+    options?: Omit<NonNullable<Parameters<typeof ky.get>[1]>, "body">,
   ) {
     return ky
       .get(path.replace("/", ""), {
@@ -21,7 +21,7 @@ export class HttpApiClient implements ApiClient {
     path: string,
     options?: Omit<NonNullable<Parameters<typeof ky.post>[1]>, "body"> & {
       body: Record<any, any>;
-    }
+    },
   ) {
     return ky
       .post(path.replace("/", ""), {
@@ -39,7 +39,7 @@ export class HttpApiClient implements ApiClient {
     path: string,
     options?: Omit<NonNullable<Parameters<typeof ky.put>[1]>, "body"> & {
       body: Record<any, any>;
-    }
+    },
   ) {
     return ky
       .put(path.replace("/", ""), {
@@ -55,7 +55,7 @@ export class HttpApiClient implements ApiClient {
   }
   public delete<T>(
     path: string,
-    options?: Omit<NonNullable<Parameters<typeof ky.delete>[1]>, "body">
+    options?: Omit<NonNullable<Parameters<typeof ky.delete>[1]>, "body">,
   ) {
     return ky
       .delete(path.replace("/", ""), {
@@ -70,7 +70,7 @@ export class HttpApiClient implements ApiClient {
   }
   public patch<T>(
     path: string,
-    options?: Omit<NonNullable<Parameters<typeof ky.patch>[1]>, "body">
+    options?: Omit<NonNullable<Parameters<typeof ky.patch>[1]>, "body">,
   ) {
     return ky
       .patch(path.replace("/", ""), {
