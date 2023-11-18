@@ -15,4 +15,8 @@ export class Ingredient {
       amount: this.amount,
     };
   }
+
+  public static from(params: { materialId: Material["id"]; amount: number }) {
+    return new Ingredient(params.materialId, params.amount);
+  }
 }
