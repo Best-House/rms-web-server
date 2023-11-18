@@ -1,11 +1,11 @@
-import { MaterialForm } from "@/components/MaterialForm";
+import { MaterialForm } from "@/modules/material/MaterialForm";
 import {
   useUpdateMaterial,
   useRemoveMaterial,
   useQueryMaterial,
-} from "@/hooks/useMaterial";
-import { AsyncBoundary } from "@/utils/AsyncBoundary";
-import { useQueryParam } from "@/utils/useQueryParam";
+} from "@/modules/material/useMaterial";
+import { AsyncBoundary } from "@/components/AsyncBoundary";
+import { useQueryParam } from "@/hooks/useQueryParam";
 import { assert } from "@toss/assert";
 import { Button, Popconfirm, message, Flex, Card } from "antd";
 import Router, { useRouter } from "next/router";

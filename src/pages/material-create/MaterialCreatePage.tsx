@@ -1,5 +1,5 @@
-import { MaterialForm } from "@/components/MaterialForm";
-import { useCreateMaterial } from "@/hooks/useMaterial";
+import { MaterialForm } from "@/modules/material/MaterialForm";
+import { useCreateMaterial } from "@/modules/material/useMaterial";
 import { Button, Card, Flex } from "antd";
 import Router from "next/router";
 
