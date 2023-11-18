@@ -1,6 +1,5 @@
-import { Flex } from "@/styles/utils";
 import { RightOutlined } from "@ant-design/icons";
-import { Button, List, Typography } from "antd";
+import { Button, List, Typography, Flex } from "antd";
 
 const data = ["아메리카노", "카페라떼", "카페모카", "초콜릿라떼", "녹차라떼"];
 

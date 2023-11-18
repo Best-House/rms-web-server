@@ -1,9 +1,8 @@
 import { 라우트 } from "@/constants/route";
 import { useQueryMaterials } from "@/hooks/useMaterial";
-import { Flex } from "@/styles/utils";
 import { AsyncBoundary } from "@/utils/AsyncBoundary";
 import { RightOutlined } from "@ant-design/icons";
-import { List, Typography, Button } from "antd";
+import { List, Typography, Button, Flex } from "antd";
 import { useRouter } from "next/router";
 
 export function MaterialListPage() {
