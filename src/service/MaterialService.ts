@@ -8,6 +8,7 @@ export class MaterialService {
     const response = await this.apiClient.get<{
       id: Material["id"];
       name: Material["name"];
+      defaultUnitPrice?: Material["defaultUnitPrice"];
     }>(`/materials/${id}`);
 
     return new Material(response.id, response.name);
@@ -18,13 +19,17 @@ export class MaterialService {
       {
         id: Material["id"];
         name: Material["name"];
+        defaultUnitPrice?: Material["defaultUnitPrice"];
       }[]
     >("/materials");
 
     return response.map((material) => new Material(material.id, material.name));
   }
 
-  public createMaterial(params: { name: Material["name"] }) {
+  public createMaterial(params: {
+    name: Material["name"];
+    defaultUnitPrice?: Material["defaultUnitPrice"];
+  }) {
     return this.apiClient.post<{ id: Material["id"] }>("/materials", {
       body: params,
     });
@@ -36,6 +41,7 @@ export class MaterialService {
   }: {
     id: Material["id"];
     name: Material["name"];
+    defaultUnitPrice?: Material["defaultUnitPrice"];
   }) {
     return this.apiClient.put<{ id: Material["id"] }>(`/materials/${id}`, {
       body: params,

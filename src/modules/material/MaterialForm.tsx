@@ -5,6 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 interface Fields {
   id?: Material["id"];
   name: Material["name"];
+  defaultUnitPrice?: Material["defaultUnitPrice"];
 }
 
 export function MaterialForm({
@@ -14,7 +15,6 @@ export function MaterialForm({
   onSubmit: (fields: Fields) => void;
   defaultValues?: Fields;
 }) {
-  console.log(defaultValues);
   const { handleSubmit, control } = useForm<Fields>({ defaultValues });
 
   return (
@@ -36,6 +36,21 @@ export function MaterialForm({
             <Form.Item
               label="원자재 이름"
               required={true}
+              help={error?.message}
+              validateStatus={error != null ? "error" : undefined}
+            >
+              <Input {...field} />
+            </Form.Item>
+          );
+        }}
+      />
+      <Controller
+        control={control}
+        name="defaultUnitPrice"
+        render={({ field, fieldState: { error } }) => {
+          return (
+            <Form.Item
+              label="단위당 가격"
               help={error?.message}
               validateStatus={error != null ? "error" : undefined}
             >

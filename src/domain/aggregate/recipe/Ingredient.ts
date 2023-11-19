@@ -5,7 +5,7 @@ export class Ingredient {
   constructor(
     /** 원자재 식별자 */
     public readonly materialId: Material["id"],
-    /** 원자재 양*/
+    /** 원자재 양 */
     public readonly amount: number,
   ) {}
 
