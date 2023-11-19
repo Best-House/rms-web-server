@@ -1,7 +1,7 @@
 import { useIsMounted } from "@toss/react";
 import { ComponentProps, Suspense } from "react";
 import { ErrorBoundary } from "@toss/error-boundary";
-import { ErrorResult } from "@/components/error/ErrorResult";
+import { ErrorResult } from "@/utils/ErrorResult";
 
 type ErrorBoundaryProps = ComponentProps<typeof ErrorBoundary>;
 

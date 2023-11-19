@@ -1,4 +1,4 @@
-import { ErrorResult } from "@/components/error/ErrorResult";
+import { ErrorResult } from "@/utils/ErrorResult";
 import { ErrorBoundary } from "@toss/error-boundary";
 import { message } from "antd";
 import { ReactNode, useEffect } from "react";

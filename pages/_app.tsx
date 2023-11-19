@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { GlobalErrorBoundary } from "@/components/error/GlobalErrorBoundary";
+import { GlobalErrorBoundary } from "@/utils/GlobalErrorBoundary";
 
 const queryClient = new QueryClient();
 

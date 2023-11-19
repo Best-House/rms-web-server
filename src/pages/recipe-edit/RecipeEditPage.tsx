@@ -1,6 +1,6 @@
-import { AsyncBoundary } from "@/components/AsyncBoundary";
+import { AsyncBoundary } from "@/utils/AsyncBoundary";
 import { Recipe } from "@/domain/aggregate/recipe/Recipe";
-import { useQueryParam } from "@/hooks/useQueryParam";
+import { useQueryParam } from "@/utils/useQueryParam";
 import {} from "@/modules/material/useMaterial";
 import { RecipeForm } from "@/modules/recipe/RecipeForm";
 import {

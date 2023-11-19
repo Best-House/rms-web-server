@@ -1,4 +1,4 @@
-import { AsyncBoundary } from "@/components/AsyncBoundary";
+import { AsyncBoundary } from "@/utils/AsyncBoundary";
 import { 라우트 } from "@/constants/route";
 import { useQueryRecipes } from "@/modules/recipe/useRecipe";
 import { RightOutlined } from "@ant-design/icons";

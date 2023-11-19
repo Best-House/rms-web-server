@@ -4,8 +4,8 @@ import {
   useDeleteMaterial,
   useQueryMaterial,
 } from "@/modules/material/useMaterial";
-import { AsyncBoundary } from "@/components/AsyncBoundary";
-import { useQueryParam } from "@/hooks/useQueryParam";
+import { AsyncBoundary } from "@/utils/AsyncBoundary";
+import { useQueryParam } from "@/utils/useQueryParam";
 import { assert } from "@toss/assert";
 import { Button, Popconfirm, message, Flex, Card } from "antd";
 import Router, { useRouter } from "next/router";

@@ -4,7 +4,7 @@ import { Button, Divider, Flex, Form, Input, Select } from "antd";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { useQueryMaterials } from "../material/useMaterial";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
-import { AsyncBoundary } from "@/components/AsyncBoundary";
+import { AsyncBoundary } from "@/utils/AsyncBoundary";
 
 interface Fields {
   id?: Recipe["id"];

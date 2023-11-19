@@ -2,7 +2,7 @@ export class Material {
   constructor(
     public readonly id: MaterialScheme["id"],
     public readonly name: MaterialScheme["name"],
-    public readonly defaultUnitPrice: MaterialScheme["defaultUnitPrice"],
+    public readonly defaultUnitPrice?: MaterialScheme["defaultUnitPrice"],
   ) {}
 
   public get json() {
