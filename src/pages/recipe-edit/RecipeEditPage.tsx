@@ -1,5 +1,5 @@
 import { AsyncBoundary } from "@/components/AsyncBoundary";
-import { Ingredient } from "@/domain/aggregate/recipe/Ingredient";
+import { Recipe } from "@/domain/aggregate/recipe/Recipe";
 import { useQueryParam } from "@/hooks/useQueryParam";
 import {} from "@/modules/material/useMaterial";
 import { RecipeForm } from "@/modules/recipe/RecipeForm";
@@ -34,10 +34,7 @@ function Page() {
       <RecipeForm
         defaultValues={data.json}
         onSubmit={async (fields) => {
-          const ingredients = fields.ingredients.map((ingredient) =>
-            Ingredient.from(ingredient),
-          );
-          await update.mutateAsync({ id, ...fields, ingredients });
+          await update.mutateAsync(Recipe.from({ id, ...fields }));
           Router.back();
           message.success("레시피를 수정하였습니다.");
         }}

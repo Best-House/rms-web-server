@@ -1,3 +1,4 @@
+import { Material } from "@/domain/aggregate/material/Material";
 import { MaterialForm } from "@/modules/material/MaterialForm";
 import { useCreateMaterial } from "@/modules/material/useMaterial";
 import { Button, Card, Flex } from "antd";
@@ -10,7 +11,7 @@ export function MaterialCreatePage() {
     <Card>
       <MaterialForm
         onSubmit={async (fields) => {
-          await create.mutateAsync(fields);
+          await create.mutateAsync(Material.from({ id: "", ...fields }));
           Router.back();
         }}
       />

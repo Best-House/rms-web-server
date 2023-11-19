@@ -1,13 +1,9 @@
-import { Ingredient } from "./Ingredient";
+import { Ingredient, IngredientScheme } from "./Ingredient";
 
-/** 레시피 */
 export class Recipe {
   constructor(
-    /** 레시피 식별자 */
-    public readonly id: string,
-    /** 레시피 이름 */
-    public readonly name: string,
-    /** 레시피에 들어가는 재료 리스트 */
+    public readonly id: RecipeScheme["id"],
+    public readonly name: RecipeScheme["name"],
     public readonly ingredients: Ingredient[],
   ) {}
 
@@ -18,4 +14,25 @@ export class Recipe {
       ingredients: this.ingredients.map((ingredient) => ingredient.json),
     };
   }
+
+  public static from({ id, name, ingredients }: RecipeScheme) {
+    return new Recipe(
+      id,
+      name,
+      ingredients.map(
+        (ingredient) =>
+          new Ingredient(ingredient.materialId, ingredient.amount),
+      ),
+    );
+  }
+}
+
+/** 레시피 */
+export interface RecipeScheme {
+  /** 레시피 식별자 */
+  id: string;
+  /** 레시피 이름 */
+  name: string;
+  /** 레시피에 들어가는 재료 리스트 */
+  ingredients: IngredientScheme[];
 }

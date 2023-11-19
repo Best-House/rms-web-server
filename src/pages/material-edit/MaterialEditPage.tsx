@@ -9,6 +9,7 @@ import { useQueryParam } from "@/hooks/useQueryParam";
 import { assert } from "@toss/assert";
 import { Button, Popconfirm, message, Flex, Card } from "antd";
 import Router, { useRouter } from "next/router";
+import { Material } from "@/domain/aggregate/material/Material";
 
 export function MaterialEditPage() {
   return (
@@ -32,7 +33,7 @@ function Page() {
       <MaterialForm
         defaultValues={data.json}
         onSubmit={async (fields) => {
-          await update.mutateAsync({ id, ...fields });
+          await update.mutateAsync(Material.from({ id, ...fields }));
           Router.back();
           message.success("원자재를 수정하였습니다.");
         }}

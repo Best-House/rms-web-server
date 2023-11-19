@@ -1,4 +1,4 @@
-import { Ingredient } from "@/domain/aggregate/recipe/Ingredient";
+import { Recipe } from "@/domain/aggregate/recipe/Recipe";
 import {} from "@/modules/material/useMaterial";
 import { RecipeForm } from "@/modules/recipe/RecipeForm";
 import { useCreateRecipe } from "@/modules/recipe/useRecipe";
@@ -16,11 +16,7 @@ export function RecipeCreatePage() {
           ingredients: [{ materialId: "", amount: 0 }],
         }}
         onSubmit={async (fields) => {
-          const ingredients = fields.ingredients.map((ingredient) =>
-            Ingredient.from(ingredient),
-          );
-
-          await create.mutateAsync({ name: fields.name, ingredients });
+          await create.mutateAsync(Recipe.from({ id: "", ...fields }));
           Router.back();
         }}
       />

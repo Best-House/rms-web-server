@@ -1,12 +1,8 @@
-import { Material } from "@/domain/aggregate/material/Material";
+import { MaterialScheme } from "@/domain/aggregate/material/Material";
 import { Form, Input } from "antd";
 import { useForm, Controller } from "react-hook-form";
 
-interface Fields {
-  id?: Material["id"];
-  name: Material["name"];
-  defaultUnitPrice?: Material["defaultUnitPrice"];
-}
+interface Fields extends Omit<MaterialScheme, "id"> {}
 
 export function MaterialForm({
   onSubmit,

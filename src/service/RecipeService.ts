@@ -1,50 +1,40 @@
-import { Recipe } from "@/domain/aggregate/recipe/Recipe";
+import { IngredientScheme } from "@/domain/aggregate/recipe/Ingredient";
+import { Recipe, RecipeScheme } from "@/domain/aggregate/recipe/Recipe";
 import { HttpApiClient } from "@/remotes/https/HttpApiClient";
 
 export class RecipeService {
   private readonly apiClient = new HttpApiClient();
 
   public async getRecipe({ id }: { id: Recipe["id"] }) {
-    const response = await this.apiClient.get<{
-      id: Recipe["id"];
-      name: Recipe["name"];
-      ingredients: Recipe["ingredients"];
-    }>(`/recipes/${id}`);
+    const response = await this.apiClient.get<
+      RecipeScheme & { ingredients: IngredientScheme[] }
+    >(`/recipes/${id}`);
 
-    return new Recipe(response.id, response.name, response.ingredients);
+    return Recipe.from(response);
   }
 
   public async getRecipes() {
-    const response = await this.apiClient.get<
-      {
-        id: Recipe["id"];
-        name: Recipe["name"];
-        ingredients: Recipe["ingredients"];
-      }[]
-    >("/recipes");
+    const response =
+      await this.apiClient.get<
+        Array<RecipeScheme & { ingredients: IngredientScheme[] }>
+      >("/recipes");
 
-    return response.map((x) => new Recipe(x.id, x.name, x.ingredients));
+    return response.map((x) => Recipe.from(x));
   }
 
-  public createRecipe(params: {
-    name: Recipe["name"];
-    ingredients: Recipe["ingredients"];
-  }) {
-    return this.apiClient.post<{ id: Recipe["id"] }>("/recipes", {
-      body: params,
+  public createRecipe(params: Recipe) {
+    const { name, ingredients } = params.json;
+
+    return this.apiClient.post<{ id: RecipeScheme["id"] }>("/recipes", {
+      body: { name, ingredients },
     });
   }
 
-  public updateRecipe({
-    id,
-    ...params
-  }: {
-    id: Recipe["id"];
-    name: Recipe["name"];
-    ingredients: Recipe["ingredients"];
-  }) {
-    return this.apiClient.put<{ id: Recipe["id"] }>(`/recipes/${id}`, {
-      body: params,
+  public updateRecipe(params: Recipe) {
+    const { id, name, ingredients } = params.json;
+
+    return this.apiClient.put(`/recipes/${id}`, {
+      body: { name, ingredients },
     });
   }
 

@@ -1,12 +1,9 @@
-import { Material } from "../material/Material";
+import { MaterialScheme } from "../material/Material";
 
-/** 재료 */
 export class Ingredient {
   constructor(
-    /** 원자재 식별자 */
-    public readonly materialId: Material["id"],
-    /** 원자재 양 */
-    public readonly amount: number,
+    public readonly materialId: IngredientScheme["materialId"],
+    public readonly amount: IngredientScheme["amount"],
   ) {}
 
   public get json() {
@@ -16,7 +13,15 @@ export class Ingredient {
     };
   }
 
-  public static from(params: { materialId: Material["id"]; amount: number }) {
-    return new Ingredient(params.materialId, params.amount);
+  public static from({ materialId, amount }: IngredientScheme) {
+    return new Ingredient(materialId, amount);
   }
+}
+
+/** 재료 */
+export interface IngredientScheme {
+  /** 원자재 식별자 */
+  materialId: MaterialScheme["id"];
+  /** 원자재 양 */
+  amount: number;
 }

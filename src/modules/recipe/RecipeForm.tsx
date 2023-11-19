@@ -64,11 +64,10 @@ export function _Form({ onSubmit, defaultValues }: Props) {
         }}
       />
       <Divider />
-      {fields.map((_, index) => {
+      {fields.map((field, index) => {
         return (
-          <>
+          <div key={field.id}>
             <Controller
-              key={index}
               control={control}
               name={`ingredients.${index}.materialId`}
               rules={{ required: "원자재를 입력해주세요." }}
@@ -113,7 +112,7 @@ export function _Form({ onSubmit, defaultValues }: Props) {
                 );
               }}
             />
-          </>
+          </div>
         );
       })}
       <Flex justify="end">
