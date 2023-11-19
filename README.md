@@ -1,4 +1,4 @@
-## rms
+## RMS
 
 restaurant management service
 
@@ -9,6 +9,6 @@ yarn
 yarn dev
 ```
 
-## service
+## Using Service
 
 https://hojun.asuscomm.com/
