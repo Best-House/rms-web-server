@@ -1,9 +1,9 @@
 import { IngredientScheme } from "@/domain/aggregate/recipe/Ingredient";
 import { Recipe, RecipeScheme } from "@/domain/aggregate/recipe/Recipe";
-import { HttpApiClient } from "@/remotes/https/HttpApiClient";
+import { ApiClient } from "@/remotes/ApiClient";
 
 export class RecipeService {
-  private readonly apiClient = new HttpApiClient();
+  constructor(private readonly apiClient: ApiClient) {}
 
   public async getRecipe({ id }: { id: Recipe["id"] }) {
     const response = await this.apiClient.get<

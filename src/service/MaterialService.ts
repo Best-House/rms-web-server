@@ -1,8 +1,8 @@
 import { Material, MaterialScheme } from "@/domain/aggregate/material/Material";
-import { HttpApiClient } from "@/remotes/https/HttpApiClient";
+import { ApiClient } from "@/remotes/ApiClient";
 
 export class MaterialService {
-  private readonly apiClient = new HttpApiClient();
+  constructor(private readonly apiClient: ApiClient) {}
 
   public async getMaterial({ id }: { id: MaterialScheme["id"] }) {
     const response = await this.apiClient.get<MaterialScheme>(

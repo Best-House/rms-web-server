@@ -5,9 +5,10 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import { MaterialService } from "@/service/MaterialService";
+import { httpApiClient } from "@/remotes/https/HttpApiClient";
 
 export function useQueryMaterial({ id }: { id: Material["id"] }) {
-  const materialService = new MaterialService();
+  const materialService = new MaterialService(httpApiClient);
 
   return useSuspenseQuery({
     queryKey: ["materials", id],
@@ -18,7 +19,7 @@ export function useQueryMaterial({ id }: { id: Material["id"] }) {
 }
 
 export function useQueryMaterials() {
-  const materialService = new MaterialService();
+  const materialService = new MaterialService(httpApiClient);
 
   return useSuspenseQuery({
     queryKey: ["materials"],
@@ -37,7 +38,7 @@ function useRefetchMaterials() {
 }
 
 export function useCreateMaterial() {
-  const materialService = new MaterialService();
+  const materialService = new MaterialService(httpApiClient);
   const refetch = useRefetchMaterials();
 
   return useMutation({
@@ -49,7 +50,7 @@ export function useCreateMaterial() {
 }
 
 export function useUpdateMaterial() {
-  const materialService = new MaterialService();
+  const materialService = new MaterialService(httpApiClient);
   const refetch = useRefetchMaterials();
 
   return useMutation({
@@ -61,7 +62,7 @@ export function useUpdateMaterial() {
 }
 
 export function useDeleteMaterial() {
-  const materialService = new MaterialService();
+  const materialService = new MaterialService(httpApiClient);
   const refetch = useRefetchMaterials();
 
   return useMutation({
