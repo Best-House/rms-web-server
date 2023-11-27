@@ -11,7 +11,7 @@ export function useQueryMaterial({ id }: { id: Material["id"] }) {
   const materialService = new MaterialService(httpApiClient);
 
   return useSuspenseQuery({
-    queryKey: ["materials", id],
+    queryKey: ["material", id],
     queryFn: () => {
       return materialService.getMaterial({ id });
     },
@@ -37,38 +37,55 @@ function useRefetchMaterials() {
   };
 }
 
+function useRefetchMaterial() {
+  const queryClient = useQueryClient();
+
+  return (id: string) => {
+    return queryClient.refetchQueries({ queryKey: ["material", id] });
+  };
+}
+
 export function useCreateMaterial() {
   const materialService = new MaterialService(httpApiClient);
-  const refetch = useRefetchMaterials();
+  const refetchMaterials = useRefetchMaterials();
+  const refetchMaterial = useRefetchMaterial();
 
   return useMutation({
     mutationFn: (
       ...params: Parameters<typeof materialService.createMaterial>
     ) => materialService.createMaterial(...params),
-    onSuccess: refetch,
+    onSuccess: ({ id }) => {
+      return Promise.all([refetchMaterials(), refetchMaterial(id)]);
+    },
   });
 }
 
 export function useUpdateMaterial() {
   const materialService = new MaterialService(httpApiClient);
-  const refetch = useRefetchMaterials();
+  const refetchMaterials = useRefetchMaterials();
+  const refetchMaterial = useRefetchMaterial();
 
   return useMutation({
     mutationFn: (
       ...params: Parameters<typeof materialService.updateMaterial>
     ) => materialService.updateMaterial(...params),
-    onSuccess: refetch,
+    onSuccess: ({ id }) => {
+      return Promise.all([refetchMaterials(), refetchMaterial(id)]);
+    },
   });
 }
 
 export function useDeleteMaterial() {
   const materialService = new MaterialService(httpApiClient);
-  const refetch = useRefetchMaterials();
+  const refetchMaterials = useRefetchMaterials();
+  const refetchMaterial = useRefetchMaterial();
 
   return useMutation({
     mutationFn: (
       ...params: Parameters<typeof materialService.deleteMaterial>
     ) => materialService.deleteMaterial(...params),
-    onSuccess: refetch,
+    onSuccess: ({ id }) => {
+      return Promise.all([refetchMaterials(), refetchMaterial(id)]);
+    },
   });
 }

@@ -11,7 +11,7 @@ export function useQueryRecipe({ id }: { id: Recipe["id"] }) {
   const recipeService = new RecipeService(httpApiClient);
 
   return useSuspenseQuery({
-    queryKey: ["recipes", id],
+    queryKey: ["recipe", id],
     queryFn: () => {
       return recipeService.getRecipe({ id });
     },
@@ -37,35 +37,52 @@ function useRefetchRecipes() {
   };
 }
 
+function useRefetchRecipe() {
+  const queryClient = useQueryClient();
+
+  return (id) => {
+    return queryClient.refetchQueries({ queryKey: ["recipe", id] });
+  };
+}
+
 export function useCreateRecipe() {
   const recipeService = new RecipeService(httpApiClient);
-  const refetch = useRefetchRecipes();
+  const refetchRecipes = useRefetchRecipes();
+  const refetchRecipe = useRefetchRecipe();
 
   return useMutation({
     mutationFn: (...params: Parameters<RecipeService["createRecipe"]>) =>
       recipeService.createRecipe(...params),
-    onSuccess: refetch,
+    onSuccess: ({ id }) => {
+      return Promise.all([refetchRecipes(), refetchRecipe(id)]);
+    },
   });
 }
 
 export function useUpdateRecipe() {
   const recipeService = new RecipeService(httpApiClient);
-  const refetch = useRefetchRecipes();
+  const refetchRecipes = useRefetchRecipes();
+  const refetchRecipe = useRefetchRecipe();
 
   return useMutation({
     mutationFn: (...params: Parameters<RecipeService["updateRecipe"]>) =>
       recipeService.updateRecipe(...params),
-    onSuccess: refetch,
+    onSuccess: ({ id }) => {
+      return Promise.all([refetchRecipes(), refetchRecipe(id)]);
+    },
   });
 }
 
 export function useDeleteRecipe() {
   const recipeService = new RecipeService(httpApiClient);
-  const refetch = useRefetchRecipes();
+  const refetchRecipes = useRefetchRecipes();
+  const refetchRecipe = useRefetchRecipe();
 
   return useMutation({
     mutationFn: (...params: Parameters<RecipeService["deleteRecipe"]>) =>
       recipeService.deleteRecipe(...params),
-    onSuccess: refetch,
+    onSuccess: ({ id }) => {
+      return Promise.all([refetchRecipes(), refetchRecipe(id)]);
+    },
   });
 }
