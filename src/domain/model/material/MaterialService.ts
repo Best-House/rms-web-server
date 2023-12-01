@@ -11,6 +11,6 @@ export class MaterialService implements QueryMaterial, CreateMaterial {
   }
 
   createMaterial(draftMaterial: DraftMaterial): Promise<Material> {
-    return this.materialRepository.createMaterial(draftMaterial);
+    return this.materialRepository.saveMaterial(draftMaterial);
   }
 }

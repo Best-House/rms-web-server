@@ -49,8 +49,7 @@ function useRefetchMaterial() {
 }
 
 export function useCreateMaterial() {
-  const apiClient = useApiClient();
-  const materialService = new MaterialService(apiClient);
+  const materialService = new NewMaterialService(getMaterialAPIClient());
   const refetchMaterials = useRefetchMaterials();
   const refetchMaterial = useRefetchMaterial();
 

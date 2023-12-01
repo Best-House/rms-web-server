@@ -20,7 +20,18 @@ export class MaterialAPIClient implements MaterialRepository {
     return response.map((x) => Material.from(x));
   }
 
-  createMaterial(draftMaterial: DraftMaterial): Promise<Material> {
-    throw new Error(`Method not implemented. ${draftMaterial}`);
+  async saveMaterial(draftMaterial: DraftMaterial): Promise<Material> {
+    const response = await this.httpClient.post<{ id: string }>("/materials", {
+      body: {
+        name: draftMaterial.name,
+        defaultUnitPrice: draftMaterial.defaultUnitPrice,
+      },
+    });
+
+    return Material.from({
+      id: response.id,
+      name: draftMaterial.name,
+      defaultUnitPrice: draftMaterial.defaultUnitPrice,
+    });
   }
 }
