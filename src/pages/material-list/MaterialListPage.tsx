@@ -45,6 +45,7 @@ function Page() {
         >
           <Typography.Text style={{ flex: 1 }}>{item.name}</Typography.Text>
           <RightOutlined
+            aria-label={`${item.name} 수정하기`}
             onClick={() => {
               router.push({
                 pathname: 라우트.원자재_수정,

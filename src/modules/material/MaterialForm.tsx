@@ -35,7 +35,7 @@ export function MaterialForm({
               help={error?.message}
               validateStatus={error != null ? "error" : undefined}
             >
-              <Input {...field} />
+              <Input aria-label="원자재 이름 입력" {...field} />
             </Form.Item>
           );
         }}
@@ -50,7 +50,7 @@ export function MaterialForm({
               help={error?.message}
               validateStatus={error != null ? "error" : undefined}
             >
-              <Input {...field} />
+              <Input aria-label="단위당 가격 입력" {...field} />
             </Form.Item>
           );
         }}
