@@ -1,6 +1,6 @@
 import { MaterialRepository } from "@/domain/out/MaterialRepository";
 import { HTTPClient } from "@/external-interfaces/api/HTTPClient";
-import { DraftMaterial, Material, MaterialScheme } from "@/domain/model/material/Material";
+import { DraftMaterial, Material } from "@/domain/model/material/Material";
 
 type GetMaterialsResponse = APIMaterial[];
 
@@ -21,6 +21,6 @@ export class MaterialAPIClient implements MaterialRepository {
   }
 
   createMaterial(draftMaterial: DraftMaterial): Promise<Material> {
-    throw new Error("Method not implemented.");
+    throw new Error(`Method not implemented. ${draftMaterial}`);
   }
 }

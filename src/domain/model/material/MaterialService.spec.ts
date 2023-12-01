@@ -12,7 +12,7 @@ describe("원재자", () => {
         ]);
       },
       createMaterial(_): Promise<Material> {
-        return Promise.reject();
+        return Promise.reject(_);
       },
     };
     const materialService = new MaterialService(mockMaterialRepository);
