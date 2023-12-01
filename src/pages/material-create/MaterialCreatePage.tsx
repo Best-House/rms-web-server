@@ -11,7 +11,14 @@ export function MaterialCreatePage() {
     <Card>
       <MaterialForm
         onSubmit={async (fields) => {
-          await create.mutateAsync(Material.from({ id: "", ...fields }));
+          if (fields.defaultUnitPrice == null) {
+            throw new Error("defaultUnitPrice is not null");
+          }
+
+          await create.mutateAsync({
+            name: fields.name,
+            defaultUnitPrice: fields.defaultUnitPrice,
+          });
           Router.back();
         }}
       />

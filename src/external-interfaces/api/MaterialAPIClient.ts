@@ -34,4 +34,10 @@ export class MaterialAPIClient implements MaterialRepository {
       defaultUnitPrice: draftMaterial.defaultUnitPrice,
     });
   }
+
+  async removeMaterial(material: Material): Promise<Material> {
+    await this.httpClient.delete(`/materials/${material.id}`);
+
+    return material;
+  }
 }

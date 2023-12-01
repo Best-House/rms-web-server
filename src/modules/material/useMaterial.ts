@@ -80,17 +80,15 @@ export function useUpdateMaterial() {
 }
 
 export function useDeleteMaterial() {
-  const apiClient = useApiClient();
-  const materialService = new MaterialService(apiClient);
+  const materialService = new NewMaterialService(getMaterialAPIClient());
   const refetchMaterials = useRefetchMaterials();
-  const refetchMaterial = useRefetchMaterial();
 
   return useMutation({
     mutationFn: (
       ...params: Parameters<typeof materialService.deleteMaterial>
     ) => materialService.deleteMaterial(...params),
-    onSuccess: ({ id }) => {
-      return Promise.all([refetchMaterials(), refetchMaterial(id)]);
+    onSuccess: () => {
+      return Promise.all([refetchMaterials()]);
     },
   });
 }
