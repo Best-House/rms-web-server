@@ -1,5 +1,5 @@
-import { IngredientScheme } from "@/domain/aggregate/recipe/Ingredient";
-import { Recipe, RecipeScheme } from "@/domain/aggregate/recipe/Recipe";
+import { IngredientScheme } from "@/domain/model/recipe/Ingredient";
+import { Recipe, RecipeScheme } from "@/domain/model/recipe/Recipe";
 import { ApiClient } from "@/remotes/ApiClient";
 
 export class RecipeService {

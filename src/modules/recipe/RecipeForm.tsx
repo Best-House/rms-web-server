@@ -1,5 +1,5 @@
-import { Ingredient } from "@/domain/aggregate/recipe/Ingredient";
-import { Recipe } from "@/domain/aggregate/recipe/Recipe";
+import { Ingredient } from "@/domain/model/recipe/Ingredient";
+import { Recipe } from "@/domain/model/recipe/Recipe";
 import { Button, Divider, Flex, Form, Input, Select } from "antd";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { useQueryMaterials } from "../material/useMaterial";

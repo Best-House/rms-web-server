@@ -1,7 +1,7 @@
 import ky from "ky";
-import { ApiClient } from "../ApiClient";
+import { HTTPClient } from "@/external-interfaces/api/HTTPClient";
 
-export class HttpApiClient implements ApiClient {
+class KyHTTPClient implements HTTPClient {
   public get<T>(
     path: string,
     options?: Omit<NonNullable<Parameters<typeof ky.get>[1]>, "body">,
@@ -85,7 +85,11 @@ export class HttpApiClient implements ApiClient {
   }
 }
 
-export const httpApiClient = new HttpApiClient();
+const instance = new KyHTTPClient();
+
+export function getHTTPClientInstance() {
+  return instance;
+}
 
 function getPrefixUrl() {
   return "/external-interface";

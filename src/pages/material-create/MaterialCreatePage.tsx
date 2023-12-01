@@ -1,4 +1,4 @@
-import { Material } from "@/domain/aggregate/material/Material";
+import { Material } from "@/domain/model/material/Material";
 import { MaterialForm } from "@/modules/material/MaterialForm";
 import { useCreateMaterial } from "@/modules/material/useMaterial";
 import { Button, Card, Flex } from "antd";

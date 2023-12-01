@@ -1,4 +1,4 @@
-import { MaterialScheme } from "../material/Material";
+import { MaterialScheme } from "@/domain/model/material/Material";
 
 export class Ingredient {
   constructor(

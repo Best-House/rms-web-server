@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { delay } from "@toss/utils";
 
 test("원자재추가삭제", async ({ page }) => {
   await page.goto("http://localhost:3000/");
@@ -14,4 +15,6 @@ test("원자재추가삭제", async ({ page }) => {
   await page.getByRole("button", { name: "삭제" }).click();
   await page.getByRole("button", { name: "네" }).click();
   await expect(page.getByText("원자재추가삭제")).not.toBeVisible();
+  await delay(2000);
+  await expect(page).toHaveScreenshot();
 });

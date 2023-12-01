@@ -1,4 +1,4 @@
-import { Recipe } from "@/domain/aggregate/recipe/Recipe";
+import { Recipe } from "@/domain/model/recipe/Recipe";
 import { useApiClient } from "@/remotes/hooks/useApiClient";
 import { RecipeService } from "@/service/RecipeService";
 import {

@@ -1,5 +1,5 @@
 import { AsyncBoundary } from "@/utils/AsyncBoundary";
-import { Recipe } from "@/domain/aggregate/recipe/Recipe";
+import { Recipe } from "@/domain/model/recipe/Recipe";
 import { useQueryParam } from "@/utils/useQueryParam";
 import {} from "@/modules/material/useMaterial";
 import { RecipeForm } from "@/modules/recipe/RecipeForm";

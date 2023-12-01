@@ -1,6 +1,6 @@
-import { Material } from "@/domain/aggregate/material/Material";
-import { Ingredient } from "@/domain/aggregate/recipe/Ingredient";
-import { Recipe } from "@/domain/aggregate/recipe/Recipe";
+import { Material } from "@/domain/model/material/Material";
+import { Ingredient } from "@/domain/model/recipe/Ingredient";
+import { Recipe } from "@/domain/model/recipe/Recipe";
 
 export const material01 = new Material("Material_1", "커피");
 

@@ -9,7 +9,7 @@ import { useQueryParam } from "@/utils/useQueryParam";
 import { assert } from "@toss/assert";
 import { Button, Popconfirm, message, Flex, Card } from "antd";
 import Router, { useRouter } from "next/router";
-import { Material } from "@/domain/aggregate/material/Material";
+import { Material } from "@/domain/model/material/Material";
 
 export function MaterialEditPage() {
   return (
