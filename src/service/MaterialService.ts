@@ -12,23 +12,11 @@ export class MaterialService {
     return Material.from(response);
   }
 
-  public createMaterial(params: Material) {
-    const { name, defaultUnitPrice } = params.json;
-
-    return this.apiClient.post<{ id: MaterialScheme["id"] }>("/materials", {
-      body: { name, defaultUnitPrice },
-    });
-  }
-
   public updateMaterial(params: Material) {
     const { id, name, defaultUnitPrice } = params.json;
 
     return this.apiClient.put(`/materials/${id}`, {
       body: { name, defaultUnitPrice },
     });
-  }
-
-  public deleteMaterial({ id }: { id: Material["id"] }) {
-    return this.apiClient.delete(`/materials/${id}`);
   }
 }
