@@ -5,10 +5,11 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import { MaterialService } from "@/service/MaterialService";
-import { httpApiClient } from "@/remotes/https/HttpApiClient";
+import { useApiClient } from "@/remotes/hooks/useApiClient";
 
 export function useQueryMaterial({ id }: { id: Material["id"] }) {
-  const materialService = new MaterialService(httpApiClient);
+  const apiClient = useApiClient();
+  const materialService = new MaterialService(apiClient);
 
   return useSuspenseQuery({
     queryKey: ["material", id],
@@ -19,7 +20,8 @@ export function useQueryMaterial({ id }: { id: Material["id"] }) {
 }
 
 export function useQueryMaterials() {
-  const materialService = new MaterialService(httpApiClient);
+  const apiClient = useApiClient();
+  const materialService = new MaterialService(apiClient);
 
   return useSuspenseQuery({
     queryKey: ["materials"],
@@ -46,7 +48,8 @@ function useRefetchMaterial() {
 }
 
 export function useCreateMaterial() {
-  const materialService = new MaterialService(httpApiClient);
+  const apiClient = useApiClient();
+  const materialService = new MaterialService(apiClient);
   const refetchMaterials = useRefetchMaterials();
   const refetchMaterial = useRefetchMaterial();
 
@@ -61,7 +64,8 @@ export function useCreateMaterial() {
 }
 
 export function useUpdateMaterial() {
-  const materialService = new MaterialService(httpApiClient);
+  const apiClient = useApiClient();
+  const materialService = new MaterialService(apiClient);
   const refetchMaterials = useRefetchMaterials();
   const refetchMaterial = useRefetchMaterial();
 
@@ -76,7 +80,8 @@ export function useUpdateMaterial() {
 }
 
 export function useDeleteMaterial() {
-  const materialService = new MaterialService(httpApiClient);
+  const apiClient = useApiClient();
+  const materialService = new MaterialService(apiClient);
   const refetchMaterials = useRefetchMaterials();
   const refetchMaterial = useRefetchMaterial();
 
