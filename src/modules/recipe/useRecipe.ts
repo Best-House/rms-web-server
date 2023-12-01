@@ -1,5 +1,5 @@
 import { Recipe } from "@/domain/aggregate/recipe/Recipe";
-import { httpApiClient } from "@/remotes/https/HttpApiClient";
+import { useApiClient } from "@/remotes/hooks/useApiClient";
 import { RecipeService } from "@/service/RecipeService";
 import {
   useMutation,
@@ -8,7 +8,8 @@ import {
 } from "@tanstack/react-query";
 
 export function useQueryRecipe({ id }: { id: Recipe["id"] }) {
-  const recipeService = new RecipeService(httpApiClient);
+  const apiClient = useApiClient();
+  const recipeService = new RecipeService(apiClient);
 
   return useSuspenseQuery({
     queryKey: ["recipe", id],
@@ -19,7 +20,8 @@ export function useQueryRecipe({ id }: { id: Recipe["id"] }) {
 }
 
 export function useQueryRecipes() {
-  const recipeService = new RecipeService(httpApiClient);
+  const apiClient = useApiClient();
+  const recipeService = new RecipeService(apiClient);
 
   return useSuspenseQuery({
     queryKey: ["recipes"],
@@ -46,7 +48,8 @@ function useRefetchRecipe() {
 }
 
 export function useCreateRecipe() {
-  const recipeService = new RecipeService(httpApiClient);
+  const apiClient = useApiClient();
+  const recipeService = new RecipeService(apiClient);
   const refetchRecipes = useRefetchRecipes();
   const refetchRecipe = useRefetchRecipe();
 
@@ -60,7 +63,8 @@ export function useCreateRecipe() {
 }
 
 export function useUpdateRecipe() {
-  const recipeService = new RecipeService(httpApiClient);
+  const apiClient = useApiClient();
+  const recipeService = new RecipeService(apiClient);
   const refetchRecipes = useRefetchRecipes();
   const refetchRecipe = useRefetchRecipe();
 
@@ -74,7 +78,8 @@ export function useUpdateRecipe() {
 }
 
 export function useDeleteRecipe() {
-  const recipeService = new RecipeService(httpApiClient);
+  const apiClient = useApiClient();
+  const recipeService = new RecipeService(apiClient);
   const refetchRecipes = useRefetchRecipes();
   const refetchRecipe = useRefetchRecipe();
 
