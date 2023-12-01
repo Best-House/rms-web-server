@@ -47,6 +47,7 @@ export function _Form({ onSubmit, defaultValues }: Props) {
       onFinish={handleSubmit(onSubmit)}
     >
       <Controller
+        aria-label="레시피 이름 입력"
         control={control}
         name="name"
         rules={{ required: "이름을 입력해주세요." }}
@@ -58,7 +59,7 @@ export function _Form({ onSubmit, defaultValues }: Props) {
               help={error?.message}
               validateStatus={error != null ? "error" : undefined}
             >
-              <Input {...field} />
+              <Input aria-label="레시피 이름 입력" {...field} />
             </Form.Item>
           );
         }}
@@ -80,6 +81,7 @@ export function _Form({ onSubmit, defaultValues }: Props) {
                     validateStatus={error != null ? "error" : undefined}
                   >
                     <Select
+                      aria-label={`${index + 1}번째 원자재 선택`}
                       defaultValue={field.value}
                       onChange={field.onChange}
                       options={data.map((x) => ({
@@ -102,6 +104,7 @@ export function _Form({ onSubmit, defaultValues }: Props) {
               render={({ field, fieldState: { error } }) => {
                 return (
                   <Form.Item
+                    aria-label={`${index + 1}번째 원자재 양 입력`}
                     label="양"
                     required={true}
                     help={error?.message}
