@@ -1,4 +1,4 @@
-import { Material, MaterialScheme } from "@/domain/aggregate/material/Material";
+import { Material, MaterialScheme } from "@/domain/model/material/Material";
 import { ApiClient } from "@/remotes/ApiClient";
 
 export class MaterialService {
@@ -12,29 +12,11 @@ export class MaterialService {
     return Material.from(response);
   }
 
-  public async getMaterials() {
-    const response = await this.apiClient.get<MaterialScheme[]>("/materials");
-
-    return response.map((x) => Material.from(x));
-  }
-
-  public createMaterial(params: Material) {
-    const { name, defaultUnitPrice } = params.json;
-
-    return this.apiClient.post<{ id: MaterialScheme["id"] }>("/materials", {
-      body: { name, defaultUnitPrice },
-    });
-  }
-
   public updateMaterial(params: Material) {
     const { id, name, defaultUnitPrice } = params.json;
 
     return this.apiClient.put(`/materials/${id}`, {
       body: { name, defaultUnitPrice },
     });
-  }
-
-  public deleteMaterial({ id }: { id: Material["id"] }) {
-    return this.apiClient.delete(`/materials/${id}`);
   }
 }

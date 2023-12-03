@@ -88,5 +88,5 @@ export class HttpApiClient implements ApiClient {
 export const httpApiClient = new HttpApiClient();
 
 function getPrefixUrl() {
-  return "/api";
+  return "/external-interface";
 }

@@ -1,4 +1,4 @@
-import { MaterialScheme } from "@/domain/aggregate/material/Material";
+import { MaterialScheme } from "@/domain/model/material/Material";
 import { Form, Input } from "antd";
 import { useForm, Controller } from "react-hook-form";
 

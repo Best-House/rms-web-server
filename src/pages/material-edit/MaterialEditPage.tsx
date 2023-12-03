@@ -9,7 +9,7 @@ import { useQueryParam } from "@/utils/useQueryParam";
 import { assert } from "@toss/assert";
 import { Button, Popconfirm, message, Flex, Card } from "antd";
 import Router, { useRouter } from "next/router";
-import { Material } from "@/domain/aggregate/material/Material";
+import { Material } from "@/domain/model/material/Material";
 
 export function MaterialEditPage() {
   return (
@@ -52,7 +52,7 @@ function Page() {
           placement="bottom"
           title="정말로 삭제하시겠어요?"
           onConfirm={async () => {
-            await remove.mutateAsync({ id });
+            await remove.mutateAsync(data);
             router.back();
             message.success("원자재를 삭제하였습니다.");
           }}

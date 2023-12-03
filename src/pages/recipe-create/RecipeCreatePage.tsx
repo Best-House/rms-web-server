@@ -1,4 +1,4 @@
-import { Recipe } from "@/domain/aggregate/recipe/Recipe";
+import { Recipe } from "@/domain/model/recipe/Recipe";
 import {} from "@/modules/material/useMaterial";
 import { RecipeForm } from "@/modules/recipe/RecipeForm";
 import { useCreateRecipe } from "@/modules/recipe/useRecipe";

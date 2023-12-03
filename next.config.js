@@ -5,7 +5,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
+        source: "/external-interface/:path*",
         destination: "https://hojun.asuscomm.com/api/:path*",
       },
     ];
