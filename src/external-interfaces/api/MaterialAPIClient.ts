@@ -1,6 +1,11 @@
 import { MaterialRepository } from "@/domain/out/MaterialRepository";
 import { HTTPClient } from "@/external-interfaces/api/HTTPClient";
-import { DraftMaterial, Material } from "@/domain/model/material/Material";
+import {
+  IdentifyMaterial,
+  DraftMaterial,
+  Material,
+  MaterialScheme,
+} from "@/domain/model/material/Material";
 
 type GetMaterialsResponse = APIMaterial[];
 
@@ -12,6 +17,13 @@ interface APIMaterial {
 
 export class MaterialAPIClient implements MaterialRepository {
   constructor(private httpClient: HTTPClient) {}
+
+  async getMaterial({ id }: IdentifyMaterial) {
+    const response = await this.httpClient.get<MaterialScheme>(
+      `/materials/${id}`,
+    );
+    return Material.from(response);
+  }
 
   async findAllMaterials() {
     const response =

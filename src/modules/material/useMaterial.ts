@@ -10,8 +10,7 @@ import { useApiClient } from "@/remotes/hooks/useApiClient";
 import { getMaterialAPIClient } from "@/external-interfaces/api";
 
 export function useQueryMaterial({ id }: { id: Material["id"] }) {
-  const apiClient = useApiClient();
-  const materialService = new MaterialService(apiClient);
+  const materialService = new NewMaterialService(getMaterialAPIClient());
 
   return useSuspenseQuery({
     queryKey: ["material", id],
