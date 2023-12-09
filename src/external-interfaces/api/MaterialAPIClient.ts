@@ -47,6 +47,16 @@ export class MaterialAPIClient implements MaterialRepository {
     });
   }
 
+  async updateMaterial(material: Material) {
+    const { id, name, defaultUnitPrice } = material.json;
+
+    await this.httpClient.put(`/materials/${id}`, {
+      body: { name, defaultUnitPrice },
+    });
+
+    return material;
+  }
+
   async removeMaterial(material: Material): Promise<Material> {
     await this.httpClient.delete(`/materials/${material.id}`);
 

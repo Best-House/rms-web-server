@@ -25,6 +25,10 @@ export class MaterialService
     return this.materialRepository.saveMaterial(draftMaterial);
   }
 
+  updateMaterial(material: Material): Promise<Material> {
+    return this.materialRepository.updateMaterial(material);
+  }
+
   deleteMaterial(material: Material): Promise<Material> {
     return this.materialRepository.removeMaterial(material);
   }

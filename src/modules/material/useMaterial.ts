@@ -4,13 +4,11 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { MaterialService } from "@/service/MaterialService";
-import { MaterialService as NewMaterialService } from "@/domain/model/material/MaterialService";
-import { useApiClient } from "@/remotes/hooks/useApiClient";
+import { MaterialService } from "@/domain/model/material/MaterialService";
 import { getMaterialAPIClient } from "@/external-interfaces/api";
 
 export function useQueryMaterial({ id }: { id: Material["id"] }) {
-  const materialService = new NewMaterialService(getMaterialAPIClient());
+  const materialService = new MaterialService(getMaterialAPIClient());
 
   return useSuspenseQuery({
     queryKey: ["material", id],
@@ -21,7 +19,7 @@ export function useQueryMaterial({ id }: { id: Material["id"] }) {
 }
 
 export function useQueryMaterials() {
-  const materialService = new NewMaterialService(getMaterialAPIClient());
+  const materialService = new MaterialService(getMaterialAPIClient());
 
   return useSuspenseQuery({
     queryKey: ["materials"],
@@ -48,7 +46,7 @@ function useRefetchMaterial() {
 }
 
 export function useCreateMaterial() {
-  const materialService = new NewMaterialService(getMaterialAPIClient());
+  const materialService = new MaterialService(getMaterialAPIClient());
   const refetchMaterials = useRefetchMaterials();
   const refetchMaterial = useRefetchMaterial();
 
@@ -63,8 +61,7 @@ export function useCreateMaterial() {
 }
 
 export function useUpdateMaterial() {
-  const apiClient = useApiClient();
-  const materialService = new MaterialService(apiClient);
+  const materialService = new MaterialService(getMaterialAPIClient());
   const refetchMaterials = useRefetchMaterials();
   const refetchMaterial = useRefetchMaterial();
 
@@ -79,7 +76,7 @@ export function useUpdateMaterial() {
 }
 
 export function useDeleteMaterial() {
-  const materialService = new NewMaterialService(getMaterialAPIClient());
+  const materialService = new MaterialService(getMaterialAPIClient());
   const refetchMaterials = useRefetchMaterials();
 
   return useMutation({
