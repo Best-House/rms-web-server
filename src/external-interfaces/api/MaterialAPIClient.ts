@@ -1,7 +1,6 @@
 import { MaterialRepository } from "@/domain/out/MaterialRepository";
 import { HTTPClient } from "@/external-interfaces/api/HTTPClient";
 import {
-  IdentifyMaterial,
   DraftMaterial,
   Material,
   MaterialScheme,
@@ -18,7 +17,7 @@ interface APIMaterial {
 export class MaterialAPIClient implements MaterialRepository {
   constructor(private httpClient: HTTPClient) {}
 
-  async getMaterial({ id }: IdentifyMaterial) {
+  async findBy(id: Material["id"]) {
     const response = await this.httpClient.get<MaterialScheme>(
       `/materials/${id}`,
     );

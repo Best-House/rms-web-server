@@ -18,10 +18,6 @@ export class Material {
   }
 }
 
-export type IdentifyMaterial = {
-  id: Material["id"];
-};
-
 export type DraftMaterial = {
   name: Material["name"];
   defaultUnitPrice: Material["defaultUnitPrice"];

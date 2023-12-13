@@ -1,9 +1,5 @@
 import { QueryMaterial } from "@/domain/in/QueryMaterial";
-import {
-  IdentifyMaterial,
-  DraftMaterial,
-  Material,
-} from "@/domain/model/material/Material";
+import { DraftMaterial, Material } from "@/domain/model/material/Material";
 import { MaterialRepository } from "@/domain/out/MaterialRepository";
 import { CreateMaterial } from "@/domain/in/CreateMaterial";
 import { DeleteMaterial } from "@/domain/in/DeleteMaterial";
@@ -13,8 +9,8 @@ export class MaterialService
 {
   constructor(private materialRepository: MaterialRepository) {}
 
-  getMaterial({ id }: IdentifyMaterial) {
-    return this.materialRepository.getMaterial({ id });
+  getMaterial(id: Material["id"]) {
+    return this.materialRepository.findBy(id);
   }
 
   getMaterials(): Promise<Material[]> {

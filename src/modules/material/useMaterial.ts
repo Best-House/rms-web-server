@@ -13,7 +13,7 @@ export function useQueryMaterial({ id }: { id: Material["id"] }) {
   return useSuspenseQuery({
     queryKey: ["material", id],
     queryFn: () => {
-      return materialService.getMaterial({ id });
+      return materialService.getMaterial(id);
     },
   });
 }
