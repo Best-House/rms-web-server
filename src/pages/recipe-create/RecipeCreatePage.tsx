@@ -13,7 +13,7 @@ export function RecipeCreatePage() {
       <RecipeForm
         defaultValues={{
           name: "",
-          ingredients: [{ materialId: "", amount: 0 }],
+          ingredients: [],
         }}
         onSubmit={async (fields) => {
           await create.mutateAsync(Recipe.from({ id: "", ...fields }));
