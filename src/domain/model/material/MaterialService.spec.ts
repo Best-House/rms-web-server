@@ -50,7 +50,7 @@ describe("원자재", () => {
     expect(createdMaterial.defaultUnitPrice).toEqual(10000);
   });
 
-  test("원자재를 조회한다.", async () => {
+  test("원자재를 수정한다.", async () => {
     const mockMaterialRepository = new MockMaterialRepository();
     mockMaterialRepository.updateMaterial = vi.fn((params) =>
       Promise.resolve(params),
