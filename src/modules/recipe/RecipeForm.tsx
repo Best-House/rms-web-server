@@ -1,10 +1,10 @@
 import { Ingredient } from "@/domain/model/recipe/Ingredient";
 import { Recipe } from "@/domain/model/recipe/Recipe";
-import { Button, Divider, Flex, Form, Input, Select } from "antd";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
-import { useQueryMaterials } from "../material/useMaterial";
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { AsyncBoundary } from "@/utils/AsyncBoundary";
+import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { Button, Divider, Flex, Form, Input, Select } from "antd";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { useQueryMaterials } from "../material/useMaterial";
 
 interface Fields {
   id?: Recipe["id"];
@@ -104,13 +104,15 @@ export function _Form({ onSubmit, defaultValues }: Props) {
               render={({ field, fieldState: { error } }) => {
                 return (
                   <Form.Item
-                    aria-label={`${index + 1}번째 원자재 양 입력`}
                     label="양"
                     required={true}
                     help={error?.message}
                     validateStatus={error != null ? "error" : undefined}
                   >
-                    <Input {...field} />
+                    <Input
+                      aria-label={`${index + 1}번째 원자재 양 입력`}
+                      {...field}
+                    />
                   </Form.Item>
                 );
               }}

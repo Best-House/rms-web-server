@@ -1,8 +1,8 @@
-import { AsyncBoundary } from "@/utils/AsyncBoundary";
 import { 라우트 } from "@/constants/route";
 import { useQueryRecipes } from "@/modules/recipe/useRecipe";
+import { AsyncBoundary } from "@/utils/AsyncBoundary";
 import { RightOutlined } from "@ant-design/icons";
-import { Button, List, Typography, Flex } from "antd";
+import { Button, Flex, List, Typography } from "antd";
 import { useRouter } from "next/router";
 
 export function RecipeListPage() {
@@ -45,6 +45,7 @@ function Page() {
         >
           <Typography.Text style={{ flex: 1 }}>{item.name}</Typography.Text>
           <RightOutlined
+            aria-label={`${item.name} 수정하기`}
             onClick={() => {
               router.push({
                 pathname: 라우트.레시피_수정,
