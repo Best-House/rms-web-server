@@ -1,6 +1,10 @@
 import { MaterialRepository } from "@/domain/out/MaterialRepository";
 import { HTTPClient } from "@/external-interfaces/api/HTTPClient";
-import { DraftMaterial, Material } from "@/domain/model/material/Material";
+import {
+  DraftMaterial,
+  Material,
+  MaterialScheme,
+} from "@/domain/model/material/Material";
 
 type GetMaterialsResponse = APIMaterial[];
 
@@ -12,6 +16,13 @@ interface APIMaterial {
 
 export class MaterialAPIClient implements MaterialRepository {
   constructor(private httpClient: HTTPClient) {}
+
+  async findBy(id: Material["id"]) {
+    const response = await this.httpClient.get<MaterialScheme>(
+      `/materials/${id}`,
+    );
+    return Material.from(response);
+  }
 
   async findAllMaterials() {
     const response =
@@ -33,6 +44,16 @@ export class MaterialAPIClient implements MaterialRepository {
       name: draftMaterial.name,
       defaultUnitPrice: draftMaterial.defaultUnitPrice,
     });
+  }
+
+  async updateMaterial(material: Material) {
+    const { id, name, defaultUnitPrice } = material.json;
+
+    await this.httpClient.put(`/materials/${id}`, {
+      body: { name, defaultUnitPrice },
+    });
+
+    return material;
   }
 
   async removeMaterial(material: Material): Promise<Material> {

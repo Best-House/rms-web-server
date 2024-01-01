@@ -9,12 +9,20 @@ export class MaterialService
 {
   constructor(private materialRepository: MaterialRepository) {}
 
+  getMaterial(id: Material["id"]) {
+    return this.materialRepository.findBy(id);
+  }
+
   getMaterials(): Promise<Material[]> {
     return this.materialRepository.findAllMaterials();
   }
 
   createMaterial(draftMaterial: DraftMaterial): Promise<Material> {
     return this.materialRepository.saveMaterial(draftMaterial);
+  }
+
+  updateMaterial(material: Material): Promise<Material> {
+    return this.materialRepository.updateMaterial(material);
   }
 
   deleteMaterial(material: Material): Promise<Material> {
