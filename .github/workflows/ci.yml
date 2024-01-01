@@ -20,5 +20,17 @@ jobs:
       - name: install dependencies
         run: yarn install
 
+      - name: type check
+        run: yarn typecheck
+
+      - name: lint check
+        run: yarn lint
+
+      - name: test check
+        run: yarn test
+
+      - name: e2e test check
+        run: yarn test:e2e
+
       - name: build
         run: yarn build
