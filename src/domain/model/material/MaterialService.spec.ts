@@ -1,19 +1,28 @@
 import { test, expect, describe, vi } from "vitest";
 import { DraftMaterial, Material } from "@/domain/model/material/Material";
 import { MaterialService } from "@/domain/model/material/MaterialService";
+import { MaterialRepository } from "@/domain/out/MaterialRepository";
 
-describe("원재자", () => {
+describe("원자재", () => {
+  test("원자재를 조회한다.", async () => {
+    const mockMaterialRepository = new MockMaterialRepository();
+    mockMaterialRepository.findBy = vi.fn((id: string) =>
+      Promise.resolve(new Material(id, "테스트원자재", 10000)),
+    );
+
+    const materialService = new MaterialService(mockMaterialRepository);
+    const material = await materialService.getMaterial("1");
+    expect(material).toStrictEqual(new Material("1", "테스트원자재", 10000));
+  });
+
   test("원자재들을 조회한다.", async () => {
-    const mockMaterialRepository = new MockMaterialRepositoryBuilder()
-      .onFindAllMaterials(
-        vi.fn(() =>
-          Promise.resolve([
-            new Material("1", "테스트원자재", 10000),
-            new Material("2", "테스트원자재2", 20000),
-          ]),
-        ),
-      )
-      .build();
+    const mockMaterialRepository = new MockMaterialRepository();
+    mockMaterialRepository.findAllMaterials = vi.fn(() =>
+      Promise.resolve([
+        new Material("1", "테스트원자재", 10000),
+        new Material("2", "테스트원자재2", 20000),
+      ]),
+    );
 
     const materialService = new MaterialService(mockMaterialRepository);
     const materials = await materialService.getMaterials();
@@ -24,15 +33,12 @@ describe("원재자", () => {
   });
 
   test("원자재를 생성한다", async () => {
-    const mockMaterialRepository = new MockMaterialRepositoryBuilder()
-      .onSaveMaterial(
-        vi.fn((params) =>
-          Promise.resolve(
-            new Material("testId", params.name, params.defaultUnitPrice),
-          ),
-        ),
-      )
-      .build();
+    const mockMaterialRepository = new MockMaterialRepository();
+    mockMaterialRepository.saveMaterial = vi.fn((params) =>
+      Promise.resolve(
+        new Material("testId", params.name, params.defaultUnitPrice),
+      ),
+    );
 
     const materialService = new MaterialService(mockMaterialRepository);
     const createdMaterial = await materialService.createMaterial({
@@ -44,10 +50,23 @@ describe("원재자", () => {
     expect(createdMaterial.defaultUnitPrice).toEqual(10000);
   });
 
+  test("원자재를 수정한다.", async () => {
+    const mockMaterialRepository = new MockMaterialRepository();
+    mockMaterialRepository.updateMaterial = vi.fn((params) =>
+      Promise.resolve(params),
+    );
+
+    const materialService = new MaterialService(mockMaterialRepository);
+    const mockMaterial = new Material("1", "테스트원자재", 10000);
+    await materialService.updateMaterial(mockMaterial);
+    expect(mockMaterialRepository.updateMaterial).toBeCalledWith(mockMaterial);
+  });
+
   test("원자재를 삭제한다", async () => {
-    const mockMaterialRepository = new MockMaterialRepositoryBuilder()
-      .onRemoveMaterial(vi.fn((params) => Promise.resolve(params)))
-      .build();
+    const mockMaterialRepository = new MockMaterialRepository();
+    mockMaterialRepository.removeMaterial = vi.fn((params) =>
+      Promise.resolve(params),
+    );
 
     const materialService = new MaterialService(mockMaterialRepository);
     const mockMaterial = new Material("1", "테스트원자재", 10000);
@@ -57,35 +76,24 @@ describe("원재자", () => {
   });
 });
 
-class MockMaterialRepositoryBuilder {
-  private findAllMaterials: () => Promise<Material[]>;
-  private saveMaterial: (draftMaterial: DraftMaterial) => Promise<Material>;
-  private removeMaterial: (material: Material) => Promise<Material>;
-  constructor() {
-    this.findAllMaterials = vi.fn();
-    this.saveMaterial = vi.fn();
-    this.removeMaterial = vi.fn();
+class MockMaterialRepository implements MaterialRepository {
+  findBy(_id: string): Promise<Material> {
+    throw new Error("Method not implemented.");
   }
 
-  onFindAllMaterials(fn: () => Promise<Material[]>) {
-    this.findAllMaterials = fn;
-    return this;
+  findAllMaterials(): Promise<Material[]> {
+    throw new Error("Method not implemented.");
   }
 
-  onSaveMaterial(fn: (draftMaterial: DraftMaterial) => Promise<Material>) {
-    this.saveMaterial = fn;
-    return this;
+  saveMaterial(_draftMaterial: DraftMaterial): Promise<Material> {
+    throw new Error("Method not implemented.");
   }
 
-  onRemoveMaterial(fn: (material: Material) => Promise<Material>) {
-    this.removeMaterial = fn;
-    return this;
+  updateMaterial(_material: Material): Promise<Material> {
+    throw new Error("Method not implemented.");
   }
-  build() {
-    return {
-      findAllMaterials: this.findAllMaterials,
-      saveMaterial: this.saveMaterial,
-      removeMaterial: this.removeMaterial,
-    };
+
+  removeMaterial(_material: Material): Promise<Material> {
+    throw new Error("Method not implemented.");
   }
 }
