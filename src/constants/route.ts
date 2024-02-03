@@ -5,4 +5,5 @@ export const 라우트 = {
   레시피_조회: "/recipe-list",
   레시피_등록: "/recipe/create",
   레시피_수정: "/recipe/[id]/edit",
+  원자재_구매_조회: "/purchase-list",
 } as const;
