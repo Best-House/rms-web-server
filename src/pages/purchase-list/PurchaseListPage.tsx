@@ -1,9 +1,7 @@
-import { 라우트 } from "@/constants/route";
 import { useQueryMaterials } from "@/modules/material/useMaterial";
 import { AsyncBoundary } from "@/utils/AsyncBoundary";
 import { RightOutlined } from "@ant-design/icons";
-import { List, Typography, Button, Flex } from "antd";
-import { useRouter } from "next/router";
+import { List, Typography, Flex } from "antd";
 
 export function PurchaseListPage() {
   return (
@@ -15,7 +13,6 @@ export function PurchaseListPage() {
 
 function Page() {
   const { data } = useQueryMaterials();
-  const router = useRouter();
 
   return (
     <List
