@@ -1,5 +1,4 @@
-import { Recipe } from "@/domain/model/recipe/Recipe";
-import { RecipeService } from "@/domain/model/recipe/RecipeService";
+import { Recipe, RecipeService } from "@/domain/model/recipe";
 import {
   useMutation,
   useQueryClient,

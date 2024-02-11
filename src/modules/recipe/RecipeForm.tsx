@@ -1,19 +1,11 @@
-import { Ingredient } from "@/domain/model/recipe/Ingredient";
-import { Recipe } from "@/domain/model/recipe/Recipe";
+import { RecipeScheme } from "@/domain/model/recipe";
 import { AsyncBoundary } from "@/utils/AsyncBoundary";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Divider, Flex, Form, Input, Select } from "antd";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useQueryMaterials } from "../material/useMaterial";
 
-interface Fields {
-  id?: Recipe["id"];
-  name: Recipe["name"];
-  ingredients: {
-    materialId: Ingredient["materialId"];
-    amount: Ingredient["amount"];
-  }[];
-}
+interface Fields extends Omit<RecipeScheme, "id"> {}
 
 interface Props {
   onSubmit: (fields: Fields) => void;

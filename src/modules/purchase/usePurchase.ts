@@ -1,10 +1,9 @@
-import { Purchase } from "@/domain/model/purchase/Purchase";
+import { Purchase, PurchaseService } from "@/domain/model/purchase";
 import {
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { PurchaseService } from "@/domain/model/purchase/PurchaseService";
 import { getPurchaseAPIClient } from "@/external-interfaces/api";
 
 export function useQueryPurchase({ id }: { id: Purchase["id"] }) {
