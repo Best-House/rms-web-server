@@ -1,14 +1,8 @@
 import { MaterialRepository } from "@/domain/out/MaterialRepository";
 import { HTTPClient } from "@/external-interfaces/api/HTTPClient";
-import {
-  DraftMaterial,
-  Material,
-  MaterialScheme,
-} from "@/domain/model/material/Material";
+import { Material } from "@/domain/model/material";
 
-type GetMaterialsResponse = APIMaterial[];
-
-interface APIMaterial {
+interface MaterialResponse {
   id: string;
   name: string;
   defaultUnitPrice?: number;
@@ -17,8 +11,8 @@ interface APIMaterial {
 export class MaterialAPIClient implements MaterialRepository {
   constructor(private httpClient: HTTPClient) {}
 
-  async findBy(id: Material["id"]) {
-    const response = await this.httpClient.get<MaterialScheme>(
+  async findMaterialBy(id: Material["id"]) {
+    const response = await this.httpClient.get<MaterialResponse>(
       `/materials/${id}`,
     );
     return Material.from(response);
@@ -26,39 +20,31 @@ export class MaterialAPIClient implements MaterialRepository {
 
   async findAllMaterials() {
     const response =
-      await this.httpClient.get<GetMaterialsResponse>(`/materials`);
+      await this.httpClient.get<MaterialResponse[]>(`/materials`);
 
     return response.map((x) => Material.from(x));
   }
 
-  async saveMaterial(draftMaterial: DraftMaterial): Promise<Material> {
-    const response = await this.httpClient.post<{ id: string }>("/materials", {
-      body: {
-        name: draftMaterial.name,
-        defaultUnitPrice: draftMaterial.defaultUnitPrice,
+  async createMaterial(draft: Omit<Material, "id">) {
+    const response = await this.httpClient.post<{ id: Material["id"] }>(
+      "/materials",
+      {
+        body: draft.json,
       },
-    });
+    );
 
-    return Material.from({
-      id: response.id,
-      name: draftMaterial.name,
-      defaultUnitPrice: draftMaterial.defaultUnitPrice,
+    return response;
+  }
+
+  updateMaterial(draft: Material) {
+    const { id, ...rest } = draft.json;
+
+    return this.httpClient.put<void>(`/materials/${id}`, {
+      body: rest,
     });
   }
 
-  async updateMaterial(material: Material) {
-    const { id, name, defaultUnitPrice } = material.json;
-
-    await this.httpClient.put(`/materials/${id}`, {
-      body: { name, defaultUnitPrice },
-    });
-
-    return material;
-  }
-
-  async removeMaterial(material: Material): Promise<Material> {
-    await this.httpClient.delete(`/materials/${material.id}`);
-
-    return material;
+  removeMaterial(id: Material["id"]) {
+    return this.httpClient.delete<void>(`/materials/${id}`);
   }
 }

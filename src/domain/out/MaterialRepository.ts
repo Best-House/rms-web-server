@@ -1,9 +1,9 @@
-import { DraftMaterial, Material } from "@/domain/model/material/Material";
+import { Material } from "@/domain/model/material";
 
 export interface MaterialRepository {
-  findBy(id: Material["id"]): Promise<Material>;
+  findMaterialBy(id: Material["id"]): Promise<Material>;
   findAllMaterials(): Promise<Material[]>;
-  saveMaterial(draftMaterial: DraftMaterial): Promise<Material>;
-  updateMaterial(material: Material): Promise<Material>;
-  removeMaterial(material: Material): Promise<Material>;
+  createMaterial(draft: Omit<Material, "id">): Promise<{ id: Material["id"] }>;
+  updateMaterial(draft: Material): Promise<void>;
+  removeMaterial(id: Material["id"]): Promise<void>;
 }

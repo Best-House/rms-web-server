@@ -1,31 +1,34 @@
-import { QueryMaterial } from "@/domain/in/QueryMaterial";
-import { DraftMaterial, Material } from "@/domain/model/material/Material";
+import { Material } from "@/domain/model/material";
 import { MaterialRepository } from "@/domain/out/MaterialRepository";
-import { CreateMaterial } from "@/domain/in/CreateMaterial";
-import { DeleteMaterial } from "@/domain/in/DeleteMaterial";
+import {
+  CreateMaterial,
+  DeleteMaterial,
+  UpdateMaterial,
+  QueryMaterial,
+} from "@/domain/in/material";
 
 export class MaterialService
-  implements QueryMaterial, CreateMaterial, DeleteMaterial
+  implements QueryMaterial, CreateMaterial, DeleteMaterial, UpdateMaterial
 {
   constructor(private materialRepository: MaterialRepository) {}
 
   getMaterial(id: Material["id"]) {
-    return this.materialRepository.findBy(id);
+    return this.materialRepository.findMaterialBy(id);
   }
 
-  getMaterials(): Promise<Material[]> {
+  getMaterialList() {
     return this.materialRepository.findAllMaterials();
   }
 
-  createMaterial(draftMaterial: DraftMaterial): Promise<Material> {
-    return this.materialRepository.saveMaterial(draftMaterial);
+  createMaterial(draft: Omit<Material, "id">) {
+    return this.materialRepository.createMaterial(draft);
   }
 
-  updateMaterial(material: Material): Promise<Material> {
-    return this.materialRepository.updateMaterial(material);
+  updateMaterial(draft: Material) {
+    return this.materialRepository.updateMaterial(draft);
   }
 
-  deleteMaterial(material: Material): Promise<Material> {
-    return this.materialRepository.removeMaterial(material);
+  deleteMaterial(id: Material["id"]) {
+    return this.materialRepository.removeMaterial(id);
   }
 }

@@ -24,7 +24,7 @@ export function useQueryMaterials() {
   return useSuspenseQuery({
     queryKey: ["materials"],
     queryFn: () => {
-      return materialService.getMaterials();
+      return materialService.getMaterialList();
     },
   });
 }
@@ -48,14 +48,12 @@ function useRefetchMaterial() {
 export function useCreateMaterial() {
   const materialService = new MaterialService(getMaterialAPIClient());
   const refetchMaterials = useRefetchMaterials();
-  const refetchMaterial = useRefetchMaterial();
 
   return useMutation({
-    mutationFn: (
-      ...params: Parameters<typeof materialService.createMaterial>
-    ) => materialService.createMaterial(...params),
-    onSuccess: ({ id }) => {
-      return Promise.all([refetchMaterials(), refetchMaterial(id)]);
+    mutationFn: (draft: Omit<Material, "id">) =>
+      materialService.createMaterial(draft),
+    onSuccess: () => {
+      return refetchMaterials();
     },
   });
 }
@@ -66,10 +64,8 @@ export function useUpdateMaterial() {
   const refetchMaterial = useRefetchMaterial();
 
   return useMutation({
-    mutationFn: (
-      ...params: Parameters<typeof materialService.updateMaterial>
-    ) => materialService.updateMaterial(...params),
-    onSuccess: ({ id }) => {
+    mutationFn: (draft: Material) => materialService.updateMaterial(draft),
+    onSuccess: (_, { id }) => {
       return Promise.all([refetchMaterials(), refetchMaterial(id)]);
     },
   });
@@ -80,11 +76,9 @@ export function useDeleteMaterial() {
   const refetchMaterials = useRefetchMaterials();
 
   return useMutation({
-    mutationFn: (
-      ...params: Parameters<typeof materialService.deleteMaterial>
-    ) => materialService.deleteMaterial(...params),
+    mutationFn: (id: Material["id"]) => materialService.deleteMaterial(id),
     onSuccess: () => {
-      return Promise.all([refetchMaterials()]);
+      return refetchMaterials();
     },
   });
 }
