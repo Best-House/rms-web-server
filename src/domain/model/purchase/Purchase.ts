@@ -13,14 +13,19 @@ export class Purchase {
   }
 }
 
+/** 원자재 구매 이력 */
 export class PurchaseScheme {
-  /** 식별자 */
+  /** 원자재 구매 이력 식별자 */
   id: string;
-  /** 구매 목록 */
+  /** 원자재 구매 목록 */
   purchaseItems: Array<{
+    /** 원자재 식별자 */
     materialId: string;
+    /** 원자재 구매 금액 */
     price: number;
+    /** 원자재 구매 양 */
     amount: number;
+    /** 원자재 구매 날짜 */
     purchaseDate?: number;
   }>;
 }
