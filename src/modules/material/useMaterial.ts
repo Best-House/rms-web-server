@@ -1,10 +1,9 @@
-import { Material } from "@/domain/model/material/Material";
+import { Material, MaterialService } from "@/domain/model/material";
 import {
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { MaterialService } from "@/domain/model/material/MaterialService";
 import { getMaterialAPIClient } from "@/external-interfaces/api";
 
 export function useQueryMaterial({ id }: { id: Material["id"] }) {
