@@ -6,10 +6,11 @@ import { RecipeForm } from "@/modules/recipe/RecipeForm";
 import {
   useDeleteRecipe,
   useQueryRecipe,
+  useQueryRecipeCost,
   useUpdateRecipe,
 } from "@/modules/recipe/useRecipe";
 import { assert } from "@toss/assert";
-import { Button, Card, Flex, Popconfirm, message } from "antd";
+import { Button, Card, Descriptions, Flex, Popconfirm, message } from "antd";
 import Router, { useRouter } from "next/router";
 
 export function RecipeEditPage() {
@@ -25,44 +26,58 @@ function Page() {
   assert(id, "id가 필요합니다.");
 
   const router = useRouter();
-  const { data } = useQueryRecipe({ id });
+  const { data: recipe } = useQueryRecipe({ id });
+  const { data: recipeCost } = useQueryRecipeCost({ id });
   const update = useUpdateRecipe();
   const remove = useDeleteRecipe();
 
   return (
-    <Card>
-      <RecipeForm
-        defaultValues={data.json}
-        onSubmit={async (fields) => {
-          await update.mutateAsync(Recipe.from({ id, ...fields }));
-          Router.back();
-          message.success("레시피를 수정하였습니다.");
-        }}
-      />
-      <Flex justify="end">
-        <Button
-          type="primary"
-          htmlType="submit"
-          form={RecipeForm.id}
-          style={{ marginRight: 8 }}
-        >
-          확인
-        </Button>
-
-        <Popconfirm
-          placement="bottom"
-          title="정말로 삭제하시겠어요?"
-          onConfirm={async () => {
-            await remove.mutateAsync(id);
-            router.back();
-            message.success("레시피를 삭제하였습니다.");
+    <>
+      <Card style={{ maxWidth: 500 }}>
+        <Descriptions title="레시피 정보" />
+        <RecipeForm
+          defaultValues={recipe.json}
+          onSubmit={async (fields) => {
+            await update.mutateAsync(Recipe.from({ id, ...fields }));
+            Router.back();
+            message.success("레시피를 수정하였습니다.");
           }}
-          okText="네"
-          cancelText="아니요"
-        >
-          <Button danger={true}>삭제</Button>
-        </Popconfirm>
-      </Flex>
-    </Card>
+        />
+        <Flex justify="end">
+          <Button
+            type="primary"
+            htmlType="submit"
+            form={RecipeForm.id}
+            style={{ marginRight: 8 }}
+          >
+            확인
+          </Button>
+
+          <Popconfirm
+            placement="bottom"
+            title="정말로 삭제하시겠어요?"
+            onConfirm={async () => {
+              await remove.mutateAsync(id);
+              router.back();
+              message.success("레시피를 삭제하였습니다.");
+            }}
+            okText="네"
+            cancelText="아니요"
+          >
+            <Button danger={true}>삭제</Button>
+          </Popconfirm>
+        </Flex>
+      </Card>
+      <Card style={{ maxWidth: 500, marginTop: 20 }}>
+        <Descriptions title="레시피 판가 계산">
+          <Descriptions.Item label="금액">{recipeCost.cost}</Descriptions.Item>
+          <Descriptions.Item label="등록되지 않은 원자재">
+            {recipeCost.unknownPriceMaterialIds.length === 0
+              ? "없음"
+              : recipeCost.unknownPriceMaterialIds.join(",")}
+          </Descriptions.Item>
+        </Descriptions>
+      </Card>
+    </>
   );
 }
