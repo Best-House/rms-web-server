@@ -1,32 +1,32 @@
-import { CreatePurchase } from "@/domain/in/CreatePurchase";
-import { DeletePurchase } from "@/domain/in/DeletePurchase";
-import { QueryPurchase } from "@/domain/in/QueryPurchase";
+import { CreatePurchase } from "@/domain/in/purchase/CreatePurchase";
+import { DeletePurchase } from "@/domain/in/purchase/DeletePurchase";
+import { QueryPurchase } from "@/domain/in/purchase/QueryPurchase";
 import { PurchaseRepository } from "@/domain/out/PurchaseRepository";
-import {
-  MaterialInPurchaseItems,
-  Purchase,
-} from "@/domain/model/purchase/Purchase";
+import { Purchase } from "@/domain/model/purchase";
+import { UpdatePurchase } from "@/domain/in/purchase";
 
 export class PurchaseService
-  implements QueryPurchase, CreatePurchase, DeletePurchase
+  implements QueryPurchase, CreatePurchase, DeletePurchase, UpdatePurchase
 {
   constructor(private purchaseRepository: PurchaseRepository) {}
 
-  getPurchaseItem(id: Purchase["id"]): Promise<Purchase> {
-    return this.purchaseRepository.findBy(id);
+  getPurchase(id: Purchase["id"]) {
+    return this.purchaseRepository.findPurchaseBy(id);
   }
-  getPurchaseList(): Promise<Purchase[]> {
+
+  getPurchaseList() {
     return this.purchaseRepository.findAllPurchases();
   }
-  createPurchase(
-    materialInPurchaseItems: MaterialInPurchaseItems,
-  ): Promise<Purchase> {
-    return this.purchaseRepository.savePurchase(materialInPurchaseItems);
+
+  createPurchase(draft: Omit<Purchase, "id">) {
+    return this.purchaseRepository.createPurchase(draft);
   }
-  updatePurchase(purchase: Purchase): Promise<Purchase> {
-    return this.purchaseRepository.updatePurchase(purchase);
+
+  updatePurchase(draft: Purchase) {
+    return this.purchaseRepository.updatePurchase(draft);
   }
-  deletePurchase(purchase: Purchase) {
-    return this.purchaseRepository.removePurchase(purchase);
+
+  deletePurchase(id: Purchase["id"]) {
+    return this.purchaseRepository.removePurchase(id);
   }
 }

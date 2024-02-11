@@ -13,16 +13,14 @@ export class Purchase {
   }
 }
 
-export type MaterialInPurchaseItems = {
-  materialId: string;
-  price: number;
-  amount: number;
-  purchaseDate?: number;
-};
-
 export class PurchaseScheme {
   /** 식별자 */
   id: string;
   /** 구매 목록 */
-  purchaseItems: Array<MaterialInPurchaseItems>;
+  purchaseItems: Array<{
+    materialId: string;
+    price: number;
+    amount: number;
+    purchaseDate?: number;
+  }>;
 }

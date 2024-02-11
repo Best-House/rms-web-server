@@ -13,7 +13,7 @@ export function useQueryPurchase({ id }: { id: Purchase["id"] }) {
   return useSuspenseQuery({
     queryKey: ["purchase", id],
     queryFn: () => {
-      return purchaseService.getPurchaseItem(id);
+      return purchaseService.getPurchase(id);
     },
   });
 }
@@ -48,14 +48,12 @@ function useRefetchPurchase() {
 export function useCreatePurchase() {
   const purchaseService = new PurchaseService(getPurchaseAPIClient());
   const refetchPurchases = useRefetchPurchases();
-  const refetchPurchase = useRefetchPurchase();
 
   return useMutation({
-    mutationFn: (
-      ...params: Parameters<typeof purchaseService.createPurchase>
-    ) => purchaseService.createPurchase(...params),
-    onSuccess: ({ id }) => {
-      return Promise.all([refetchPurchases(), refetchPurchase(id)]);
+    mutationFn: (draft: Omit<Purchase, "id">) =>
+      purchaseService.createPurchase(draft),
+    onSuccess: () => {
+      return refetchPurchases();
     },
   });
 }
@@ -66,10 +64,8 @@ export function useUpdateMaterial() {
   const refetchPurchase = useRefetchPurchase();
 
   return useMutation({
-    mutationFn: (
-      ...params: Parameters<typeof purchaseService.updatePurchase>
-    ) => purchaseService.updatePurchase(...params),
-    onSuccess: ({ id }) => {
+    mutationFn: (draft: Purchase) => purchaseService.updatePurchase(draft),
+    onSuccess: (_, { id }) => {
       return Promise.all([refetchPurchases(), refetchPurchase(id)]);
     },
   });
@@ -80,11 +76,9 @@ export function useDeleteMaterial() {
   const refetchPurchases = useRefetchPurchases();
 
   return useMutation({
-    mutationFn: (
-      ...params: Parameters<typeof purchaseService.deletePurchase>
-    ) => purchaseService.deletePurchase(...params),
+    mutationFn: (id: Purchase["id"]) => purchaseService.deletePurchase(id),
     onSuccess: () => {
-      return Promise.all([refetchPurchases()]);
+      return refetchPurchases();
     },
   });
 }
