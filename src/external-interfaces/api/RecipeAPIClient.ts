@@ -29,12 +29,9 @@ export class RecipeAPIClient implements RecipeRepository {
   }
 
   async createRecipe(draft: Omit<Recipe, "id">) {
-    const response = await this.httpClient.post<{ id: Recipe["id"] }>(
-      `/recipes`,
-      {
-        body: draft.json,
-      },
-    );
+    const response = await this.httpClient.post<{ id: string }>(`/recipes`, {
+      body: draft.json,
+    });
 
     return response;
   }
@@ -47,7 +44,14 @@ export class RecipeAPIClient implements RecipeRepository {
     });
   }
 
-  deleteRecipe(id: string) {
+  deleteRecipe(id: Recipe["id"]) {
     return this.httpClient.delete<void>(`/recipes/${id}`);
+  }
+
+  getCost(id: Recipe["id"]) {
+    return this.httpClient.get<{
+      cost: number;
+      unknownPriceMaterialIds: Array<string>;
+    }>(`/recipes/${id}/cost`);
   }
 }
