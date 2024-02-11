@@ -19,8 +19,16 @@ export function MainPage() {
         onClick={() => {
           router.push({ pathname: 라우트.레시피_조회 });
         }}
+        style={{ marginRight: 8 }}
       >
         레시피 조회
+      </Button>
+      <Button
+        onClick={() => {
+          router.push({ pathname: 라우트.원자재_구매_조회 });
+        }}
+      >
+        원자재 구매 조회
       </Button>
     </>
   );
