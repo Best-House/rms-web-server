@@ -1,32 +1,30 @@
 import { Recipe } from "@/domain/model/recipe/Recipe";
-import { useApiClient } from "@/remotes/hooks/useApiClient";
-import { RecipeService } from "@/service/RecipeService";
+import { RecipeService } from "@/domain/model/recipe/RecipeService";
 import {
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
+import { getRecipeAPIClient } from "@/external-interfaces/api";
 
 export function useQueryRecipe({ id }: { id: Recipe["id"] }) {
-  const apiClient = useApiClient();
-  const recipeService = new RecipeService(apiClient);
+  const recipeService = new RecipeService(getRecipeAPIClient());
 
   return useSuspenseQuery({
     queryKey: ["recipe", id],
     queryFn: () => {
-      return recipeService.getRecipe({ id });
+      return recipeService.getRecipe(id);
     },
   });
 }
 
 export function useQueryRecipes() {
-  const apiClient = useApiClient();
-  const recipeService = new RecipeService(apiClient);
+  const recipeService = new RecipeService(getRecipeAPIClient());
 
   return useSuspenseQuery({
     queryKey: ["recipes"],
     queryFn: () => {
-      return recipeService.getRecipes();
+      return recipeService.getRecipeList();
     },
   });
 }
@@ -48,46 +46,39 @@ function useRefetchRecipe() {
 }
 
 export function useCreateRecipe() {
-  const apiClient = useApiClient();
-  const recipeService = new RecipeService(apiClient);
+  const recipeService = new RecipeService(getRecipeAPIClient());
   const refetchRecipes = useRefetchRecipes();
-  const refetchRecipe = useRefetchRecipe();
 
   return useMutation({
-    mutationFn: (...params: Parameters<RecipeService["createRecipe"]>) =>
-      recipeService.createRecipe(...params),
-    onSuccess: ({ id }) => {
-      return Promise.all([refetchRecipes(), refetchRecipe(id)]);
+    mutationFn: (draft: Omit<Recipe, "id">) =>
+      recipeService.createRecipe(draft),
+    onSuccess: () => {
+      return refetchRecipes();
     },
   });
 }
 
 export function useUpdateRecipe() {
-  const apiClient = useApiClient();
-  const recipeService = new RecipeService(apiClient);
+  const recipeService = new RecipeService(getRecipeAPIClient());
   const refetchRecipes = useRefetchRecipes();
   const refetchRecipe = useRefetchRecipe();
 
   return useMutation({
-    mutationFn: (...params: Parameters<RecipeService["updateRecipe"]>) =>
-      recipeService.updateRecipe(...params),
-    onSuccess: ({ id }) => {
-      return Promise.all([refetchRecipes(), refetchRecipe(id)]);
+    mutationFn: (draft: Recipe) => recipeService.updateRecipe(draft),
+    onSuccess: (_, draft) => {
+      return Promise.all([refetchRecipes(), refetchRecipe(draft.id)]);
     },
   });
 }
 
 export function useDeleteRecipe() {
-  const apiClient = useApiClient();
-  const recipeService = new RecipeService(apiClient);
+  const recipeService = new RecipeService(getRecipeAPIClient());
   const refetchRecipes = useRefetchRecipes();
-  const refetchRecipe = useRefetchRecipe();
 
   return useMutation({
-    mutationFn: (...params: Parameters<RecipeService["deleteRecipe"]>) =>
-      recipeService.deleteRecipe(...params),
-    onSuccess: ({ id }) => {
-      return Promise.all([refetchRecipes(), refetchRecipe(id)]);
+    mutationFn: (id: Recipe["id"]) => recipeService.deleteRecipe(id),
+    onSuccess: () => {
+      return refetchRecipes();
     },
   });
 }

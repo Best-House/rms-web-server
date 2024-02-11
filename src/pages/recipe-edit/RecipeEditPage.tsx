@@ -53,7 +53,7 @@ function Page() {
           placement="bottom"
           title="정말로 삭제하시겠어요?"
           onConfirm={async () => {
-            await remove.mutateAsync({ id });
+            await remove.mutateAsync(id);
             router.back();
             message.success("레시피를 삭제하였습니다.");
           }}
