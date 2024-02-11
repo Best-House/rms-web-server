@@ -1,3 +1,4 @@
+import { Material } from "@/domain/model/material";
 import { MaterialForm } from "@/modules/material/MaterialForm";
 import { useCreateMaterial } from "@/modules/material/useMaterial";
 import { Button, Card, Flex } from "antd";
@@ -14,10 +15,13 @@ export function MaterialCreatePage() {
             throw new Error("defaultUnitPrice is not null");
           }
 
-          await create.mutateAsync({
-            name: fields.name,
-            defaultUnitPrice: fields.defaultUnitPrice,
-          });
+          await create.mutateAsync(
+            Material.from({
+              id: "",
+              name: fields.name,
+              defaultUnitPrice: fields.defaultUnitPrice,
+            }),
+          );
           Router.back();
         }}
       />

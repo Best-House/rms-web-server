@@ -1,14 +1,9 @@
-import {
-  MaterialInPurchaseItems,
-  Purchase,
-} from "@/domain/model/purchase/Purchase";
+import { Purchase } from "@/domain/model/purchase";
 
 export interface PurchaseRepository {
-  findBy(id: Purchase["id"]): Promise<Purchase>;
+  findPurchaseBy(id: Purchase["id"]): Promise<Purchase>;
   findAllPurchases(): Promise<Purchase[]>;
-  savePurchase(
-    materialInPurchaseItems: MaterialInPurchaseItems,
-  ): Promise<Purchase>;
-  updatePurchase(material: Purchase): Promise<Purchase>;
-  removePurchase(Purchase: Purchase): Promise<Purchase>;
+  createPurchase(draft: Omit<Purchase, "id">): Promise<{ id: Purchase["id"] }>;
+  updatePurchase(draft: Purchase): Promise<void>;
+  removePurchase(id: Purchase["id"]): Promise<void>;
 }

@@ -18,11 +18,6 @@ export class Material {
   }
 }
 
-export type DraftMaterial = {
-  name: Material["name"];
-  defaultUnitPrice: Material["defaultUnitPrice"];
-};
-
 /** 원자재 */
 export class MaterialScheme {
   /** 원자재 식별자 */

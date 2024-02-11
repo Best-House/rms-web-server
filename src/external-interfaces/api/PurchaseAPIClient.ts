@@ -1,25 +1,22 @@
 import { PurchaseRepository } from "@/domain/out/PurchaseRepository";
 import { HTTPClient } from "@/external-interfaces/api/HTTPClient";
-import {
-  MaterialInPurchaseItems,
-  Purchase,
-  PurchaseScheme,
-} from "@/domain/model/purchase/Purchase";
+import { Purchase } from "@/domain/model/purchase";
 
-type GetPurchasesResponse = { id: string; purchaseItems: APIPurchase[] };
-
-interface APIPurchase {
-  materialId: string;
-  price: number;
-  amount: number;
-  purchaseDate?: number;
+interface PurchaseResponse {
+  id: string;
+  purchaseItems: Array<{
+    materialId: string;
+    price: number;
+    amount: number;
+    purchaseDate?: number;
+  }>;
 }
 
 export class PurchaseAPIClient implements PurchaseRepository {
   constructor(private httpClient: HTTPClient) {}
 
-  async findBy(id: Purchase["id"]) {
-    const response = await this.httpClient.get<PurchaseScheme>(
+  async findPurchaseBy(id: Purchase["id"]) {
+    const response = await this.httpClient.get<PurchaseResponse>(
       `/purchases/${id}`,
     );
     return Purchase.from(response);
@@ -27,43 +24,31 @@ export class PurchaseAPIClient implements PurchaseRepository {
 
   async findAllPurchases() {
     const response =
-      await this.httpClient.get<GetPurchasesResponse>(`/purchases`);
+      await this.httpClient.get<PurchaseResponse[]>(`/purchases`);
 
-    return response.purchaseItems.map((x) =>
-      Purchase.from({ id: response.id, purchaseItems: [x] }),
-    );
+    return response.map((x) => Purchase.from(x));
   }
 
-  async savePurchase(
-    materialInPurchaseItems: MaterialInPurchaseItems,
-  ): Promise<Purchase> {
-    const response = await this.httpClient.post<{ id: string }>("/purchases", {
-      body: {
-        materialId: materialInPurchaseItems.materialId,
-        price: materialInPurchaseItems.price,
-        amount: materialInPurchaseItems.amount,
+  async createPurchase(draft: Omit<Purchase, "id">) {
+    const response = await this.httpClient.post<{ id: Purchase["id"] }>(
+      "/purchases",
+      {
+        body: draft.json,
       },
-    });
+    );
 
-    return Purchase.from({
-      id: response.id,
-      purchaseItems: [materialInPurchaseItems],
+    return response;
+  }
+
+  updatePurchase(draft: Purchase) {
+    const { id, ...rest } = draft.json;
+
+    return this.httpClient.put<void>(`/purchases/${id}`, {
+      body: rest,
     });
   }
 
-  async updatePurchase(purchase: Purchase) {
-    const { id, purchaseItems } = purchase.json;
-
-    await this.httpClient.put(`/purchases/${id}`, {
-      body: { purchaseItems },
-    });
-
-    return purchase;
-  }
-
-  async removePurchase(purchase: Purchase): Promise<Purchase> {
-    await this.httpClient.delete(`/purchases/${purchase.id}`);
-
-    return purchase;
+  removePurchase(id: Purchase["id"]) {
+    return this.httpClient.delete<void>(`/purchases/${id}`);
   }
 }
