@@ -1,6 +1,4 @@
-import { AsyncBoundary } from "@/utils/AsyncBoundary";
 import { Recipe } from "@/domain/model/recipe";
-import { useQueryParam } from "@/utils/useQueryParam";
 import {} from "@/modules/material/useMaterial";
 import { RecipeForm } from "@/modules/recipe/RecipeForm";
 import {
@@ -9,7 +7,10 @@ import {
   useQueryRecipeCost,
   useUpdateRecipe,
 } from "@/modules/recipe/useRecipe";
+import { AsyncBoundary } from "@/utils/AsyncBoundary";
+import { useQueryParam } from "@/utils/useQueryParam";
 import { assert } from "@toss/assert";
+import { formatToKRW } from "@toss/utils";
 import { Button, Card, Descriptions, Flex, Popconfirm, message } from "antd";
 import Router, { useRouter } from "next/router";
 
@@ -69,8 +70,10 @@ function Page() {
         </Flex>
       </Card>
       <Card style={{ maxWidth: 500, marginTop: 20 }}>
-        <Descriptions title="레시피 판가 계산">
-          <Descriptions.Item label="금액">{recipeCost.cost}</Descriptions.Item>
+        <Descriptions title="레시피 원가 계산">
+          <Descriptions.Item label="금액">
+            {formatToKRW(recipeCost.cost)}
+          </Descriptions.Item>
           <Descriptions.Item label="등록되지 않은 원자재">
             {recipeCost.unknownPriceMaterialIds.length === 0
               ? "없음"
