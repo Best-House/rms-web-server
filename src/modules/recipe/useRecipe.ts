@@ -17,6 +17,17 @@ export function useQueryRecipe({ id }: { id: Recipe["id"] }) {
   });
 }
 
+export function useQueryRecipeCost({ id }: { id: Recipe["id"] }) {
+  const recipeService = new RecipeService(getRecipeAPIClient());
+
+  return useSuspenseQuery({
+    queryKey: ["recipe-cost", id],
+    queryFn: () => {
+      return recipeService.getCost(id);
+    },
+  });
+}
+
 export function useQueryRecipes() {
   const recipeService = new RecipeService(getRecipeAPIClient());
 
@@ -40,7 +51,9 @@ function useRefetchRecipe() {
   const queryClient = useQueryClient();
 
   return (id) => {
-    return queryClient.refetchQueries({ queryKey: ["recipe", id] });
+    return queryClient.refetchQueries({
+      queryKey: ["recipe", "recipe-cost", id],
+    });
   };
 }
 

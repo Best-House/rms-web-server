@@ -37,6 +37,7 @@
     "@toss/assert": "^1.1.8",
     "@toss/error-boundary": "^1.4.6",
     "@toss/react": "^1.6.1",
+    "@toss/utils": "^1.4.6",
     "antd": "^5.4.6",
     "ky": "^0.33.3",
     "next": "13.5.6",

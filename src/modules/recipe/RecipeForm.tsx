@@ -46,6 +46,7 @@ export function _Form({ onSubmit, defaultValues }: Props) {
         render={({ field, fieldState: { error } }) => {
           return (
             <Form.Item
+              labelAlign="left"
               label="레시피 이름"
               required={true}
               help={error?.message}
@@ -67,6 +68,7 @@ export function _Form({ onSubmit, defaultValues }: Props) {
               render={({ field, fieldState: { error } }) => {
                 return (
                   <Form.Item
+                    labelAlign="left"
                     label="원자재"
                     required={true}
                     help={error?.message}
@@ -96,6 +98,7 @@ export function _Form({ onSubmit, defaultValues }: Props) {
               render={({ field, fieldState: { error } }) => {
                 return (
                   <Form.Item
+                    labelAlign="left"
                     label="양"
                     required={true}
                     help={error?.message}
